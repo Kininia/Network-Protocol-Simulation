@@ -2,4 +2,4 @@
 
 ### Project Link
 
-[Link to Project Documentation](https://drive.google.com/drive/u/2/folders/0B5gIZlC2RN2oTGNRRjVTQ3BGSGc)
+[Link to Project Material](https://drive.google.com/drive/u/2/folders/0B5gIZlC2RN2oTGNRRjVTQ3BGSGc)
