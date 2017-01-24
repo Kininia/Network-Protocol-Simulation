@@ -9,4 +9,5 @@
 
 ##### RED document
 [Link to RED DOCUMENT 1](http://www.diva-portal.org/smash/get/diva2:831714/FULLTEXT01.pdf)
+
 [Link to RED DOCUMENT 2](http://www.icir.org/floyd/papers/early.pdf)
