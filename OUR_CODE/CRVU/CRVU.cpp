@@ -1,17 +1,30 @@
 // CRVU.cpp : Defines the entry point for the console application.
 //
 
+
+#include <random>
 #include <iostream>
 #include <stdint.h>
 #include <bitset>
 
 using namespace std;
 
+double randomNumber ();
+
 int main() {
-	bitset<8> seed(string("00000010"));
-	cout << seed << endl;
-	unsigned int feedback = seed[0] ^ seed[1] ^ seed[2] ^ seed[3] ^ seed[4] ^ seed[5] ^ seed[6] ^ seed[7]; // Creates feedback bit from seed.
-	cout << feedback << endl;
+	
+	 cout << randomNumber() << endl;
+	
 	return 0;
 }
 
+double randomNumber(){
+	random_device rd;
+	mt19937 gen(rd());
+	uniform_real_distribution<> dis(0, 1);
+	for (int i= 0; i<20; i++){
+
+		//cout << dis(gen) << endl;
+	}
+	return dis(gen);
+}
