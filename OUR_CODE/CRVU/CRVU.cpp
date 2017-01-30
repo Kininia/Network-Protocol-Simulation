@@ -8,8 +8,8 @@
 #include <bitset>
 
 using namespace std;
-
-double randomNumber ();
+public:
+	double randomNumber ();
 
 int main() {
 	
@@ -18,13 +18,9 @@ int main() {
 	return 0;
 }
 
-double randomNumber(){
+double RED_CRVU::randomNumber(){
 	random_device rd;
 	mt19937 gen(rd());
 	uniform_real_distribution<> dis(0, 1);
-	for (int i= 0; i<20; i++){
-
-		//cout << dis(gen) << endl;
-	}
 	return dis(gen);
 }
