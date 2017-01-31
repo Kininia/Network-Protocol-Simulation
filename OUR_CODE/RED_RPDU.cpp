@@ -17,8 +17,7 @@ using namespace std;
 		}
 	}
 	bool RED_RPDU::getState_doneDrop(){
-		return done_drop
-		
+		return done_drop		
 	}
 
 	bool RED_RPDU::getState_discardNow(){
