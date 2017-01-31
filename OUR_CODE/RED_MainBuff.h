@@ -9,7 +9,7 @@ class RED_MainBuff {
 	public:
 		bool cell_ready = false;
 		bool start_pdrop = false;
-		bool 
+		bool drop
 		
 		
 };

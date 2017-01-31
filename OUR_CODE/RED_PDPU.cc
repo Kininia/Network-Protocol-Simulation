@@ -51,15 +51,13 @@ void RED_PDPU:: get_ql(){
 	ql = RED_MainBuff::return_ql();
 }	
 
-bool RED_PDPU:: return_state(){
-	if (enqueue_now = true){
-		return enqueue_now;
-	}
-	else if (done_pdrop = true){
-			return done_pdrop;
-	}
-	else if (drop_early = true){
-		return drop_early;
-	}
+bool RED_PDPU:: getState_enqueueNow(){
+	return enqueue_now;
+}
+bool RED_PDPU:: getState_donePdrop(){
+	return done_pdrop;
+}
+bool RED_PDPU:: getState_dropEarly(){
+	return drop_early;
 }
 

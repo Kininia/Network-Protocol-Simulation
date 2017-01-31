@@ -10,12 +10,21 @@ using namespace std;
 		q = CRVU.randomNumber();
 		cout << q << endl;
 		if (q <= pdrop) {
-			discard_now = 1;
+			discard_now = true;
 		}
 		else {
-			discard_now = 0;
+			discard_now = false;
 		}
 	}
+	bool RED_RPDU::getState_doneDrop(){
+		return done_drop
+		
+	}
+
+	bool RED_RPDU::getState_discardNow(){
+		return discard_now;
+	}
+	
 
 //For testing class in conjunction with RED_CRVU
 /*int main() {

@@ -25,7 +25,9 @@ class RED_PDPU {
 		void check_avgQ();
 		void calc_pb();
 		double get_pb();
-		bool return_state();
+		bool getState_EnqueueNow();
+		bool getState_donePdrop();
+		bool getState_dropEarly();
 		
 	private:
 		double pb;
