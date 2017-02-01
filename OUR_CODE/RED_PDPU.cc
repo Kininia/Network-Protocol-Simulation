@@ -33,11 +33,16 @@ void RED_PDPU::check_avgQ(){
 						
 						
 // Calculate drop probability.	
-void RED_PDPU::calc_pb(){
-			
-	double pa;
-	pa = maxp * ((avgQ - minth)/(maxth - minth));
-	pb =pa/(1 - (count * pa));
+double RED_PDPU::calc_pb(){
+	pb = maxp * ((avgQ - minth)/(maxth - minth));
+	return pb;
+}
+
+double RED_PDPU::calc_pa(){
+	
+	pa =pb/(1 - (count * pb));
+	return pa;
+	
 }
 		
 
@@ -61,3 +66,12 @@ bool RED_PDPU:: getState_dropEarly(){
 	return drop_early;
 }
 
+bool RED_PDPU:: setState_enqueueNow(bool b){
+	this.enqueue_now = b;
+}
+bool RED_PDPU:: setState_donePdrop(bool b){
+	this.done_pdrop = b;
+}
+bool RED_PDPU:: setState_dropEarly(bool b){
+	this.drop_early = b;
+}

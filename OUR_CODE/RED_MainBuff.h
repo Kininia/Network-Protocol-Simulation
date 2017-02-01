@@ -17,6 +17,11 @@ class RED_MainBuff {
 	public:
 		bool cell_ready = false;
 		bool start_pdrop = false;
+		bool enqueue_now = false;
+		bool done_drop = false;
+		bool done_pdrop = false;
+		bool drop_early = false;
+		bool discard_now = false;
 };
 
 #endif

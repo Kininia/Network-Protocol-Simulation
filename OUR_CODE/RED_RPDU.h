@@ -16,5 +16,7 @@ class RED_RPDU{
 			void calculate();	
 			bool RED_RPDU::getState_doneDrop();
 			bool RED_RPDU::getState_discardNow();
+			bool RED_RPDU::setState_doneDrop();
+			bool RED_RPDU::setState_discardNow();
 };
 #endif

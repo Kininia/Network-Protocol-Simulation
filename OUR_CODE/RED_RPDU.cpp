@@ -11,17 +11,27 @@ using namespace std;
 		cout << q << endl;
 		if (q <= pdrop) {
 			discard_now = true;
+			done_drop = false;
 		}
 		else {
 			discard_now = false;
+			done_drop = true;
 		}
 	}
 	bool RED_RPDU::getState_doneDrop(){
-		return done_drop		
+		return done_drop;
 	}
 
 	bool RED_RPDU::getState_discardNow(){
 		return discard_now;
+	}
+	
+	bool RED_RPDU::setState_doneDrop(bool b){
+		this.done_drop = b;
+	}
+
+	bool RED_RPDU::setState_discardNow(bool b){
+		this.discard_now = b;
 	}
 	
 

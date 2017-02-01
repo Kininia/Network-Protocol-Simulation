@@ -28,9 +28,13 @@ class RED_PDPU {
 		bool getState_EnqueueNow();
 		bool getState_donePdrop();
 		bool getState_dropEarly();
+		bool setState_EnqueueNow();
+		bool setState_donePdrop();
+		bool setState_dropEarly();
 		
 	private:
 		double pb;
+		double pa;
 		int count;
 		
 };
