@@ -3,12 +3,17 @@
 
 using namespace std;
 
-int main(){
-	
+private:
 	RED_CRVU CRVU;
 	RED_PDPU PDPU;
 	RED_RPDU RPDU;
 	queue<packet> fifoBuffer;
+	int queueMaxSize;
+	
+
+int main(){
+	
+	
 	
 	PDPU.check_avgQ();
 	enqueue_now = PDPU.getState_enqueueNow();
@@ -40,7 +45,15 @@ int main(){
 	}
 }
 
-bool RED_MainBuff::enqueue(packet p){
+void RED_MainBuff::setMaxSize(int s){
+	this.queueMaxSize = s;
+}
+
+void RED_MainBuff::getMaxSize(){
+	return this.queueMaxSize;
+}
+
+bool RED_MainBuff::enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	if (fifoBuffer.push(p)){
 		return true;
 	}
@@ -49,15 +62,63 @@ bool RED_MainBuff::enqueue(packet p){
 	}
 }
 
-packet RED_MainBuff::dequeue(){
+packet RED_MainBuff::dequeue(WifiMacHeader *hdr){
 	packet p = fifoBuffer.front();
 	fifoBuffer.pop();
 	return p;
 }
-bool RED_MainBuff::isEmpty(){
+bool RED_MainBuff::IsEmpty(){
 	return fifoBuffer.empty();
 }
 
-int RED_MainBuff::getql(){
+uint32_t  RED_MainBuff::GetSize (){
 	return fifoBuffer.size();
+}
+
+void PushFront (Ptr<const Packet> packet, const WifiMacHeader &hdr){
+	
+}
+
+Ptr<const Packet> Peek (WifiMacHeader *hdr){
+	  
+}
+
+
+Ptr<const Packet> DequeueByTidAndAddress (WifiMacHeader *hdr,
+                                            uint8_t tid,
+                                            WifiMacHeader::AddressType type,
+                                            Mac48Address addr){
+}
+
+Ptr<const Packet> PeekByTidAndAddress (WifiMacHeader *hdr,
+                                         uint8_t tid,
+                                         WifiMacHeader::AddressType type,
+                                         Mac48Address addr,
+                                         Time *timestamp){											 
+}
+
+bool Remove (Ptr<const Packet> packet){
+	
+}
+
+uint32_t GetNPacketsByTidAndAddress (uint8_t tid,
+                                       WifiMacHeader::AddressType type,
+                                       Mac48Address addr){
+										   
+}
+
+Ptr<const Packet> DequeueFirstAvailable (WifiMacHeader *hdr,
+                                           Time &tStamp,
+                                           const QosBlockedDestinations *blockedPackets){
+											   
+}
+
+Ptr<const Packet> PeekFirstAvailable (WifiMacHeader *hdr,
+                                        Time &tStamp,
+                                        const QosBlockedDestinations *blockedPackets){
+											
+}
+
+void Flush (void){
+	
 }
