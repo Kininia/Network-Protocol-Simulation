@@ -53,7 +53,7 @@ double RED_PDPU::get_pb(){
 }
 
 void RED_PDPU:: get_ql(){
-	ql = RED_MainBuff::return_ql();
+	ql = RED_MainBuff::getSize();
 }	
 
 bool RED_PDPU:: getState_enqueueNow(){

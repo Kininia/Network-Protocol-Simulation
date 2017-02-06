@@ -139,7 +139,7 @@ REDDcaTxop::REDDcaTxop ()
   NS_LOG_FUNCTION (this);
   m_transmissionListener = new REDDcaTxop::TransmissionListener (this);
   m_dcf = new REDDcaTxop::Dcf (this);
-  m_queue = CreateObject<REDWifiMacQueue> ();
+  m_queue = CreateObject<RED_MainBuff> ();
   m_rng = new RealRandomStream ();
 }
 

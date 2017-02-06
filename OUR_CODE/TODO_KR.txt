@@ -1,0 +1,18 @@
+TODO:
+
+m_queue.front()
+m_queue.erase()
+m_queue.empty() 	??
+m_queue.size() 		??
+
+m_queue.begin()
+m_queue.end()
+
+Add error checking, exceptions.
+
+
+Compare REDWifiMacQueue constructor with RED_MainBuff.
+
+Adjust .h file for RED_MainBuff.
+Add methods missing from cc to h-file.
+Check h file with REDWifiMacQueue for constructors.
