@@ -1,36 +1,69 @@
+/*
+ * Most of the methods are a direct copy of REDWifiMacQueue of the Ns3 class files.
+ * The main reason for a copy and not inheritance is because we need to swap the use
+ * of the REDWifiMacQueue file with the RED_MainBuff file for RED to work properly over WiFi.
+ *
+ *
+ * The RED_MainBuff class adds RED functionality to WiFi in Ns3.
+ * Most of the functionality lies in the classes RED_CRVU, RED_PDPU and RED_RPDU.
+ * The big difference is in the methods Enqueue and RealEnqueue. Enqueue has logic for the RED algorithm.
+ * The RED logic is run in Enqueue and then if a packet is to be enqueued according to the algorithm RealEnqueue is run.
+ */
 
-#include "REDWifiMacQueue.h" // might not need to be included.
+#include "ns3/simulator.h"
+#include "ns3/packet.h"
+#include "ns3/uinteger.h"
+#include "RED_MainBuff.h"
+#include "../../../ns-3.24/src/wifi/model/qos-blocked-destinations.h"
+	
+	
+using namespace ns3{
 
-using namespace std;
+NS_OBJECT_ENSURE_REGISTERED (RED_MainBuff);
 
-private:
-	RED_CRVU CRVU;
-	RED_PDPU PDPU;
-	RED_RPDU RPDU;
-	PacketQueue m_queue;
-	uint32_t m_size;
-	uint32_t m_maxSize; 
-	Time m_maxDelay;
-	
-
-int main(){
-	
-	
-	
-	
+RED_MainBuff::Item::Item (Ptr<const Packet> packet, const WifiMacHeader &hdr, Time tstamp)
+  : packet (packet),
+    hdr (hdr),
+    tstamp (tstamp)
+{
 }
 
-//Might need namespace ns3 {} for the functions below.
+TypeId RED_MainBuff::GetTypeId (void){
+  static TypeId tid = TypeId ("ns3::RED_MainBuff")
+    .SetParent<Object> ()
+    .SetGroupName ("Wifi")
+    .AddConstructor<RED_MainBuff> ()
+    .AddAttribute ("MaxPacketNumber", "If a packet arrives when there are already this number of packets, it is dropped.",
+                   UintegerValue (400),
+                   MakeUintegerAccessor (&RED_MainBuff::m_maxSize),
+                   MakeUintegerChecker<uint32_t> ())
+    .AddAttribute ("MaxDelay", "If a packet stays longer than this delay in the queue, it is dropped.",
+                   TimeValue (MilliSeconds (500.0)),
+                   MakeTimeAccessor (&RED_MainBuff::m_maxDelay),
+                   MakeTimeChecker ())
+  ;
+  return tid;
+}
 
-void RED_MainBuff::setMaxSize(uint32_t maxSize){
+RED_MainBuff::RED_MainBuff()
+  : m_size (0)
+{
+}
+
+RED_MainBuff::~RED_MainBuff()
+{
+  Flush ();
+}
+
+void RED_MainBuff::SetMaxSize(uint32_t maxSize){
 	m_maxSize = maxSize;
 }
 
-void RED_MainBuff::setMaxSize(Time delay){
+void RED_MainBuff::SetMaxSize(Time delay){
 	m_maxDelay = delay;
 }
 
-uint32_t RED_MainBuff::getMaxSize(){
+uint32_t RED_MainBuff::GetMaxSize(){
 	return m_maxSize;
 }
 
@@ -38,7 +71,7 @@ Time RED_MainBuff::GetMaxDelay(){
 	return m_maxDelay;
 }
 
-bool RED_MainBuff::enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
+bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	
 	try{
 		
@@ -48,7 +81,7 @@ bool RED_MainBuff::enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 		done_pdrop = PDPU.getState_donePdrop();
 		
 		if (enqueue_now){
-			RED_MainBuff::realEnqueue(packet, &hdr);
+			RED_MainBuff::RealEnqueue(packet, &hdr);
 			PDPU.setState_enqueueNow(false);
 		}
 		else if (done_pdrop){
@@ -56,7 +89,7 @@ bool RED_MainBuff::enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 			done_drop = RPDU.getState_doneDrop();
 			discard_now = RPDU.getState_discardNow();
 			if (done_drop){
-				RED_MainBuff::realEnqueue(packet, &hdr);
+				RED_MainBuff::RealEnqueue(packet, &hdr);
 				RPDU.setState_doneDrop(false);
 			}
 			else if (discard_now){
@@ -78,24 +111,24 @@ bool RED_MainBuff::enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 		}
 	}
 	
-	catch (int param){
+	catch (uint32_t param){
 		if (param == 1){
-			cout <<"If-done_pdrop, default, Exception in RED_MainBuff::enqueue"<endl;
+			std::cout <<"If-done_pdrop, default, Exception in RED_MainBuff::enqueue"<endl;
 		}
 		else if (param == 2){
-			cout <<"If-never entered parameter, default, Exception in RED_MainBuff::enqueue"<endl;
+			std::cout <<"If-never entered parameter, default, Exception in RED_MainBuff::enqueue"<endl;
 		}
 	}
 }
 
-void RED_MainBuff::realEnqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
+void RED_MainBuff::RealEnqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	try{
 		Time now = Simulator::Now();
 		m_queue.push_back(Item (packet, hdr, now))
 		m_size++;
 	}
 	catch (...){
-		cout << "Error in RED_MainBuff::realEnqueue" << endl; 
+		std::cout << "Error in RED_MainBuff::realEnqueue" << endl; 
 	}
 }
 
@@ -118,7 +151,7 @@ void RED_MainBuff::Cleanup(){
 	m_size -= n;
 }
 
-packet RED_MainBuff::dequeue(WifiMacHeader *hdr){
+packet RED_MainBuff::Dequeue(WifiMacHeader *hdr){
 	Cleanup();
 	if (!m_queue.empty()){
 		Item i = m_queue.front();
@@ -276,3 +309,5 @@ Ptr<const Packet> RED_MainBuff::PeekFirstAvailable (WifiMacHeader *hdr, Time &tS
 	}
 	return 0;
 }
+
+} //namespace ns3 ends.

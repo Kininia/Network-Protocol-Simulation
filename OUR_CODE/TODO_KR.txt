@@ -9,10 +9,3 @@ m_queue.begin()
 m_queue.end()
 
 Add error checking, exceptions.
-
-
-Compare REDWifiMacQueue constructor with RED_MainBuff.
-
-Adjust .h file for RED_MainBuff.
-Add methods missing from cc to h-file.
-Check h file with REDWifiMacQueue for constructors.
