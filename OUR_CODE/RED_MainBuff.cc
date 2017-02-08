@@ -160,10 +160,6 @@ packet RED_MainBuff::Dequeue(WifiMacHeader *hdr){
 		*hdr = i.hdr;
 		return i.packet;
 	}
-	//OLD CODE
-	/*packet p = m_queue.front();
-	m_queue.pop();
-	return p;*/
 }
 
 Ptr<const Packet> RED_MainBuff::Peek (WifiMacHeader *hdr){

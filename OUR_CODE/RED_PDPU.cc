@@ -50,9 +50,9 @@ double RED_PDPU::calc_pb(){
 }
 
 /**
+* Calculates a variable used for calculating drop probability.
 * 
-* 
-* \return 
+* \return pa, that is used in drop probability
 */
 double RED_PDPU::calc_pa(){
 	
