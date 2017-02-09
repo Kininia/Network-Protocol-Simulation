@@ -9,6 +9,10 @@
 
 class RED_CRVU{
 	public:
+	
+		/**
+		* Generates a random number between 0-1.
+		*/
 		double randomNumber ();
 };
 

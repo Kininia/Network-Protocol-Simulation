@@ -20,12 +20,55 @@ class RED_PDPU {
 		int maxp;
 		double tm;
 		int ql;
-	
+		
+		/**
+		* Calculate average length of the queue.
+		* 
+		*/
 		void calc_avqQ();
+
+		/**
+		* Checks average queue length and
+		* sets respective variable depending on length.
+		*  
+		*/		
 		void check_avgQ();
+		
+		/**
+		* Calculates drop probability for a packet.
+		* 
+		* \return drop probability of the pakage.
+		*/
 		void calc_pb();
+		
+		/**
+		* Calculates a variable used for calculating drop probability.
+		* 
+		* \return pa, that is used in drop probability
+		*/
+		void calc_pa();
+
+		/**
+		* Getter for drop probability.
+		* 
+		* \return drop probability of pakage.
+		*/
 		double get_pb();
+		
+		/**
+		* Getter for queue length from MainBuff
+		*
+		*/
+		void get_ql();
+		
+		/**
+		* Getter for enqueue_now state.
+		*
+		* \return true if enqueue_now is true, otherwise false.
+		*/
 		bool getState_EnqueueNow();
+
+		
 		bool getState_donePdrop();
 		bool getState_dropEarly();
 		bool setState_EnqueueNow();

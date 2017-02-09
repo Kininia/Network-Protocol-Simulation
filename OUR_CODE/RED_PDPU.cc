@@ -4,21 +4,13 @@
 using namespace std;
 
 
-/**
-* Calculate average length of the queue.
-* 
-*/
+
 void RED_PDPU::calc_avgQ(){
 			
 	avgQ = qw*ql + (1 - qw)*avgQ;
 }
 
 
-/**
- * Checks average queue length and
- * sets respective variable depending on length.
- *  
- */
 void RED_PDPU::check_avgQ(){
 			
 	if (avgQ < minth){
@@ -39,21 +31,11 @@ void RED_PDPU::check_avgQ(){
 }
 						
 						
-/**
-* Calculates drop probability for a packet.
-* 
-* \return drop probability of the pakage.
-*/
 double RED_PDPU::calc_pb(){
 	pb = maxp * ((avgQ - minth)/(maxth - minth));
 	return pb;
 }
 
-/**
-* Calculates a variable used for calculating drop probability.
-* 
-* \return pa, that is used in drop probability
-*/
 double RED_PDPU::calc_pa(){
 	
 	pa =pb/(1 - (count * pb));
@@ -62,31 +44,17 @@ double RED_PDPU::calc_pa(){
 }
 		
 
-/**
- * Getter for drop probability.
- * 
- * \return drop probability of pakage.
- */
 double RED_PDPU::get_pb(){
 			
 	return pb;
 }
 
 
-/**
-* Getter for queue length from MainBuff
-*
-*/
 void RED_PDPU:: get_ql(){
 	ql = RED_MainBuff::getSize();
 }	
 
 
-/**
-* Getter for enqueue_now state.
-*
-* \return true if enqueue_now is true, otherwise false.
-*/
 bool RED_PDPU:: getState_enqueueNow(){
 	return enqueue_now;
 }
