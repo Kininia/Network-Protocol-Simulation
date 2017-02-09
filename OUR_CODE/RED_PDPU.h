@@ -68,11 +68,39 @@ class RED_PDPU {
 		*/
 		bool getState_EnqueueNow();
 
-		
+		/**
+		* Getter for done_pdrop state.
+		* 
+		* \return true if done_pdrop is true, otherwise false.
+		*/
 		bool getState_donePdrop();
+		
+		/**
+		* Getter for drop_early state.
+		* 
+		* \return true if drop_early is true, otherwise false.
+		*/
 		bool getState_dropEarly();
+		
+		/**
+		* Setter for enqueue_now state.
+		* 
+		* \param what to set state as
+		*/
 		bool setState_EnqueueNow();
+		
+		/**
+		* Setter for enqueue_now state.
+		* 
+		* \param what to set state as
+		*/
 		bool setState_donePdrop();
+		
+		/**
+		* Setter for drop_early state.
+		* 
+		* \param what to set state as* 
+		*/
 		bool setState_dropEarly();
 		
 	private:

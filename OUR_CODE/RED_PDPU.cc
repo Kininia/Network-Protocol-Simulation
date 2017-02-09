@@ -59,49 +59,27 @@ bool RED_PDPU:: getState_enqueueNow(){
 	return enqueue_now;
 }
 
-/**
-* Getter for done_pdrop state.
-* 
-* \return true if done_pdrop is true, otherwise false.
-*/
+
 bool RED_PDPU:: getState_donePdrop(){
 	return done_pdrop;
 }
 
-/**
-* Getter for drop_early state.
-* 
-* \return true if drop_early is true, otherwise false.
-*/
+
 bool RED_PDPU:: getState_dropEarly(){
 	return drop_early;
 }
 
-/**
-* Setter for enqueue_now state.
-* 
-* \param what to set state as
-*/
+
 bool RED_PDPU:: setState_enqueueNow(bool b){
 	this.enqueue_now = b;
 }
 
 
-/**
-* Setter for enqueue_now state.
-* 
-* \param what to set state as
-*/
 bool RED_PDPU:: setState_donePdrop(bool b){
 	this.done_pdrop = b;
 }
 
 
-/**
-* Setter for drop_early state.
-* 
-* \param what to set state as* 
-*/
 bool RED_PDPU:: setState_dropEarly(bool b){
 	this.drop_early = b;
 }
