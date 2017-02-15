@@ -10,7 +10,8 @@
 
 #include "ns3/dcf-manager.h"
 #include "ns3/mac-low.h"
-#include "REDWifiMacQueue.h"
+//#include "REDWifiMacQueue.h"
+#include "RED_MainBuff.h"
 #include "ns3/mac-tx-middle.h"
 #include "ns3/wifi-mac-trailer.h"
 #include "ns3/wifi-mac.h"
