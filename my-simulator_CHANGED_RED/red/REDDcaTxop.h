@@ -1,6 +1,7 @@
 #ifndef RED_DCA_TXOP_H
 #define RED_DCA_TXOP_H
 
+//#include "RED_MainBuff.h"
 #include <stdint.h>
 #include "ns3/callback.h"
 #include "ns3/packet.h"
@@ -15,7 +16,7 @@ namespace ns3 {
 
 class DcfState;
 class DcfManager;
-class REDWifiMacQueue;
+class RED_MainBuff;
 class MacLow;
 class WifiMacParameters;
 class MacTxMiddle;
@@ -81,9 +82,9 @@ public:
   /**
    * Return the packet queue associated with this REDDcaTxop.
    *
-   * \return REDWifiMacQueue
+   * \return RED_MainBuff
    */
-  Ptr<REDWifiMacQueue > GetQueue () const;
+  Ptr<RED_MainBuff > GetQueue () const;
 
   virtual void SetMinCw (uint32_t minCw);
   virtual void SetMaxCw (uint32_t maxCw);
@@ -292,7 +293,7 @@ private:
   DcfManager *m_manager;
   TxOk m_txOkCallback;
   TxFailed m_txFailedCallback;
-  Ptr<REDWifiMacQueue> m_queue;
+  Ptr<RED_MainBuff> m_queue;
   MacTxMiddle *m_txMiddle;
   Ptr <MacLow> m_low;
   Ptr<WifiRemoteStationManager> m_stationManager;

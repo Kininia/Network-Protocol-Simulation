@@ -1,3 +1,4 @@
+//#include "RED_MainBuff.h"
 #include "ns3/assert.h"
 #include "ns3/packet.h"
 #include "ns3/log.h"
@@ -10,7 +11,6 @@
 
 #include "ns3/dcf-manager.h"
 #include "ns3/mac-low.h"
-//#include "REDWifiMacQueue.h"
 #include "RED_MainBuff.h"
 #include "ns3/mac-tx-middle.h"
 #include "ns3/wifi-mac-trailer.h"
@@ -125,10 +125,10 @@ REDDcaTxop::GetTypeId (void)
     .SetParent<ns3::Dcf> ()
     .SetGroupName ("Wifi")
     .AddConstructor<REDDcaTxop> ()
-    .AddAttribute ("Queue", "The REDWifiMacQueue object",
+    .AddAttribute ("Queue", "The RED_MainBuff object",
                    PointerValue (),
                    MakePointerAccessor (&REDDcaTxop::GetQueue),
-                   MakePointerChecker<REDWifiMacQueue> ())
+                   MakePointerChecker<RED_MainBuff> ())
   ;
   return tid;
 }
@@ -206,7 +206,7 @@ REDDcaTxop::SetTxFailedCallback (TxFailed callback)
   m_txFailedCallback = callback;
 }
 
-Ptr<REDWifiMacQueue >
+Ptr<RED_MainBuff >
 REDDcaTxop::GetQueue () const
 {
   NS_LOG_FUNCTION (this);

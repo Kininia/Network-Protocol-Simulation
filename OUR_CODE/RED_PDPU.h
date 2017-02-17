@@ -4,7 +4,7 @@
 #define RED_PDPU_H
 #include "RED_MainBuff.h"
 
-using namespace std;
+namespace ns3{
 
 class RED_PDPU {
 	
@@ -25,7 +25,7 @@ class RED_PDPU {
 		* Calculate average length of the queue.
 		* 
 		*/
-		void calc_avqQ();
+		void calc_avgQ();
 
 		/**
 		* Checks average queue length and
@@ -39,14 +39,14 @@ class RED_PDPU {
 		* 
 		* \return drop probability of the pakage.
 		*/
-		void calc_pb();
+		double calc_pb();
 		
 		/**
 		* Calculates a variable used for calculating drop probability.
 		* 
 		* \return pa, that is used in drop probability
 		*/
-		void calc_pa();
+		double calc_pa();
 
 		/**
 		* Getter for drop probability.
@@ -66,7 +66,7 @@ class RED_PDPU {
 		*
 		* \return true if enqueue_now is true, otherwise false.
 		*/
-		bool getState_EnqueueNow();
+		bool getState_enqueueNow();
 
 		/**
 		* Getter for done_pdrop state.
@@ -87,21 +87,21 @@ class RED_PDPU {
 		* 
 		* \param what to set state as
 		*/
-		bool setState_EnqueueNow();
+		void setState_enqueueNow(bool state);
 		
 		/**
 		* Setter for enqueue_now state.
 		* 
 		* \param what to set state as
 		*/
-		bool setState_donePdrop();
+		void setState_donePdrop(bool state);
 		
 		/**
 		* Setter for drop_early state.
 		* 
 		* \param what to set state as* 
 		*/
-		bool setState_dropEarly();
+		void setState_dropEarly(bool state);
 		
 	private:
 		double pb;
@@ -110,10 +110,5 @@ class RED_PDPU {
 		
 };
 
-
-
-
-
-
-
+}
 #endif

@@ -2,7 +2,7 @@
 #ifndef RED_MAINBUFF_H
 #define RED_MAINBUFF_H
 
-#include <stdint>
+#include <stdint.h>
 
 #include <list>
 #include <utility>
@@ -14,38 +14,37 @@
 #include "RED_RPDU.h"
 #include "RED_CRVU.h"
 
-using namespace ns3{
+namespace ns3 {
 class QosBlockedDestinations;
 
 class RED_MainBuff : public Object
 {
-public:
-	static TypeId GetTypeId (void);
-	REDWifiMacQueue (); // Constructor
-	~REDWifiMacQueue (); //Shortcut for flush().
 	
-	//Different states for the RED algorithm.
-	bool cell_ready = false;
-	bool start_pdrop = false;
-	bool enqueue_now = false;
-	bool done_drop = false;
-	bool done_pdrop = false;
-	bool drop_early = false;
-	bool discard_now = false;
 	
 	private:
 		//Creates objects for the respective RED modules.
-		RED_CRVU CRVU;
-		RED_PDPU PDPU;
-		RED_RPDU RPDU;
 		
 		
+	public:
+
+		static TypeId GetTypeId (void);
+		RED_MainBuff (); // Constructor
+		~RED_MainBuff (); //Shortcut for flush().
+
+		//Different states for the RED algorithm.
+		bool cell_ready = false;
+		bool start_pdrop = false;
+		bool enqueue_now = false;
+		bool done_drop = false;
+		bool done_pdrop = false;
+		bool drop_early = false;
+		bool discard_now = false;
 		/**
 		* Set the maximum queue size.
 		*
 		* \param maxSize the maximum queue size
 		*/
-		void RED_MainBuff::SetMaxSize(uint32_t maxSize);
+		void SetMaxSize(uint32_t maxSize);
 		 
 		 
 		 /**
@@ -53,7 +52,7 @@ public:
 		*
 		* \param delay the maximum delay
 		*/
-		void RED_MainBuff::SetMaxDelay(Time delay);
+		void SetMaxDelay(Time delay);
 		
 		
 		/**
@@ -61,7 +60,7 @@ public:
 		*
 		* \return the maximum queue size
 		*/
-		uint32_t RED_MainBuff::GetMaxSize();
+		uint32_t GetMaxSize();
 
 		
 		/**
@@ -81,7 +80,7 @@ public:
 		*
 		* \return true/false, if the operation was a success or not.
 		*/
-		bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr);
+		bool Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr);
 		
 		
 		 /**
@@ -90,7 +89,7 @@ public:
 		* \param packet the packet to be euqueued at the end
 		* \param hdr the header of the given packet
 		*/
-		void RED_MainBuff::RealEnqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr);
+		void RealEnqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr);
 		
 		
 		/**
@@ -109,7 +108,7 @@ public:
 		*
 		* \return the packet
 		*/
-		Ptr<const Packet> RED_MainBuff::Dequeue (WifiMacHeader *hdr);
+		Ptr<const Packet> Dequeue (WifiMacHeader *hdr);
 		
 		
 		/**
@@ -221,7 +220,7 @@ public:
 		*
 		* \return true if the queue is empty, false if not.
 		*/
-		bool RED_MainBuff::IsEmpty();
+		bool IsEmpty();
 
 		
 		/**
@@ -229,7 +228,7 @@ public:
 		*
 		* \return the current queue size
 		*/
-		uint32_t  RED_MainBuff::GetSize ();
+		uint32_t  GetSize ();
 		
 		
 		 /**

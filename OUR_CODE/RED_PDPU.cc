@@ -1,12 +1,10 @@
 
 #include "RED_PDPU.h"
 
-using namespace std;
-
-
+namespace ns3{
 
 void RED_PDPU::calc_avgQ(){
-			
+	get_ql();
 	avgQ = qw*ql + (1 - qw)*avgQ;
 }
 
@@ -50,36 +48,38 @@ double RED_PDPU::get_pb(){
 }
 
 
-void RED_PDPU:: get_ql(){
-	ql = RED_MainBuff::getSize();
+void RED_PDPU::get_ql(){
+	RED_MainBuff buff;
+	ql = buff.GetSize();
 }	
 
 
-bool RED_PDPU:: getState_enqueueNow(){
+bool RED_PDPU::getState_enqueueNow(){
 	return enqueue_now;
 }
 
 
-bool RED_PDPU:: getState_donePdrop(){
+bool RED_PDPU::getState_donePdrop(){
 	return done_pdrop;
 }
 
 
-bool RED_PDPU:: getState_dropEarly(){
+bool RED_PDPU::getState_dropEarly(){
 	return drop_early;
 }
 
 
-bool RED_PDPU:: setState_enqueueNow(bool b){
-	this.enqueue_now = b;
+void RED_PDPU::setState_enqueueNow(bool b){
+	enqueue_now = b;
 }
 
 
-bool RED_PDPU:: setState_donePdrop(bool b){
-	this.done_pdrop = b;
+void RED_PDPU::setState_donePdrop(bool b){
+	done_pdrop = b;
 }
 
 
-bool RED_PDPU:: setState_dropEarly(bool b){
-	this.drop_early = b;
+void RED_PDPU::setState_dropEarly(bool b){
+	drop_early = b;
+}
 }

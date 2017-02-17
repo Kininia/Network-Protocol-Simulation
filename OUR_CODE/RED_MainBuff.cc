@@ -17,9 +17,11 @@
 #include "../../../ns-3.24/src/wifi/model/qos-blocked-destinations.h"
 	
 	
-using namespace ns3{
+namespace ns3{
+
 
 NS_OBJECT_ENSURE_REGISTERED (RED_MainBuff);
+
 
 RED_MainBuff::Item::Item (Ptr<const Packet> packet, const WifiMacHeader &hdr, Time tstamp)
   : packet (packet),
@@ -59,7 +61,7 @@ void RED_MainBuff::SetMaxSize(uint32_t maxSize){
 	m_maxSize = maxSize;
 }
 
-void RED_MainBuff::SetMaxSize(Time delay){
+void RED_MainBuff::SetMaxDelay(Time delay){
 	m_maxDelay = delay;
 }
 
@@ -74,14 +76,17 @@ Time RED_MainBuff::GetMaxDelay(){
 bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	
 	try{
-		
+		RED_CRVU CRVU;
+		RED_PDPU PDPU;
+		RED_RPDU RPDU;
+
 		PDPU.check_avgQ();
 		enqueue_now = PDPU.getState_enqueueNow();
 		drop_early = PDPU.getState_dropEarly();
 		done_pdrop = PDPU.getState_donePdrop();
 		
 		if (enqueue_now){
-			RED_MainBuff::RealEnqueue(packet, &hdr);
+			RED_MainBuff::RealEnqueue(packet, hdr);
 			PDPU.setState_enqueueNow(false);
 		}
 		else if (done_pdrop){
@@ -89,11 +94,11 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 			done_drop = RPDU.getState_doneDrop();
 			discard_now = RPDU.getState_discardNow();
 			if (done_drop){
-				RED_MainBuff::RealEnqueue(packet, &hdr);
+				RED_MainBuff::RealEnqueue(packet, hdr);
 				RPDU.setState_doneDrop(false);
 			}
 			else if (discard_now){
-				return;
+				return false;
 				//Throw away the packet.
 			}
 			else {
@@ -104,7 +109,6 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 		else if (drop_early){
 			PDPU.calc_pb();
 			PDPU.calc_pa();
-			//TODO
 		}
 		else {
 			throw 2;
@@ -113,10 +117,10 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	
 	catch (uint32_t param){
 		if (param == 1){
-			std::cout <<"If-done_pdrop, default, Exception in RED_MainBuff::enqueue"<endl;
+			std::cout <<"If-done_pdrop, default, Exception in RED_MainBuff::enqueue"<<std::endl;
 		}
 		else if (param == 2){
-			std::cout <<"If-never entered parameter, default, Exception in RED_MainBuff::enqueue"<endl;
+			std::cout <<"If-never entered parameter, default, Exception in RED_MainBuff::enqueue"<<std::endl;
 		}
 	}
 }
@@ -124,11 +128,11 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 void RED_MainBuff::RealEnqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	try{
 		Time now = Simulator::Now();
-		m_queue.push_back(Item (packet, hdr, now))
+		m_queue.push_back(Item (packet, hdr, now));
 		m_size++;
 	}
 	catch (...){
-		std::cout << "Error in RED_MainBuff::realEnqueue" << endl; 
+		std::cout << "Error in RED_MainBuff::realEnqueue" << std::endl; 
 	}
 }
 
@@ -139,7 +143,7 @@ void RED_MainBuff::Cleanup(){
 	
 	Time now = Simulator::Now();
 	uint32_t n = 0;
-	for (PacketQueue i = m_queue.begin(); i != m_queue.end();){
+	for (PacketQueueI i = m_queue.begin(); i != m_queue.end();){
 		if (i->tstamp + m_maxDelay > now){
 			i++;
 		}
@@ -151,7 +155,7 @@ void RED_MainBuff::Cleanup(){
 	m_size -= n;
 }
 
-packet RED_MainBuff::Dequeue(WifiMacHeader *hdr){
+Ptr<const Packet> RED_MainBuff::Dequeue(WifiMacHeader *hdr){
 	Cleanup();
 	if (!m_queue.empty()){
 		Item i = m_queue.front();
@@ -174,11 +178,11 @@ Ptr<const Packet> RED_MainBuff::Peek (WifiMacHeader *hdr){
 
 /*Searches through the queue for a packet identified by Tid and adress. If no packet is found
 the initialized packet with value 0 is returned.*/
-Ptr<const Packet> RED_MainBuff::DequeueByTidAndAddress (WifiMacHeader *hdr, uint8_t tid, WifiMacHeader::AddressType type, Mac48Address addr){
+Ptr<const Packet> RED_MainBuff::DequeueByTidAndAddress (WifiMacHeader *hdr, uint8_t tid, WifiMacHeader::AddressType type, Mac48Address dest){
 	Cleanup();
 	Ptr<const Packet> packet = 0;
 	if (!m_queue.empty()){
-		PacketQueueI it = 0;
+		PacketQueueI it;
 		for (it = m_queue.begin(); it != m_queue.end(); ++it){
 			if (it->hdr.IsQosData()){
 				if (GetAddressForPacket (type, it) == dest && it->hdr.GetQosTid() == tid){
@@ -194,7 +198,7 @@ Ptr<const Packet> RED_MainBuff::DequeueByTidAndAddress (WifiMacHeader *hdr, uint
 	return packet;
 }
 
-Ptr<const Packet> RED_MainBuff::PeekByTidAndAddress (WifiMacHeader *hdr, uint8_t tid, WifiMacHeader::AddressType type, Mac48Address addr, Time *timestamp){											 
+Ptr<const Packet> RED_MainBuff::PeekByTidAndAddress (WifiMacHeader *hdr, uint8_t tid, WifiMacHeader::AddressType type, Mac48Address dest, Time *timestamp){											 
 	Cleanup();
 	if (!m_queue.empty()){
 		PacketQueueI it;
@@ -223,7 +227,7 @@ uint32_t  RED_MainBuff::GetSize (){
 }
 
 void RED_MainBuff::Flush (void){
-	m_queue.erase(m_queue.begin(9,m_queue.end());
+	m_queue.erase (m_queue.begin(), m_queue.end());
 	m_size = 0;
 }
 
@@ -267,9 +271,9 @@ uint32_t RED_MainBuff::GetNPacketsByTidAndAddress (uint8_t tid, WifiMacHeader::A
 	uint32_t nPackets = 0;
 	if (!m_queue.empty()){
 		PacketQueueI it;
-		for (it = m_queue.begin(9; it != m_queue.end(); it++){
+		for (it = m_queue.begin(); it != m_queue.end(); it++){
 			if (GetAddressForPacket(type, it) == addr){
-				if (it->hdr.IsQosData(9 && it->hdr.GetQosTid() == tid){
+				if (it->hdr.IsQosData() && it->hdr.GetQosTid() == tid){
 					nPackets++;
 				}
 			}
@@ -278,7 +282,7 @@ uint32_t RED_MainBuff::GetNPacketsByTidAndAddress (uint8_t tid, WifiMacHeader::A
 	return nPackets;
 }
 
-Ptr<const Packet> RED_MainBuff::DequeueFirstAvailable (WifiMacHeader *hdr, Time &tStamp, const QosBlockedDestinations *blockedPackets){
+Ptr<const Packet> RED_MainBuff::DequeueFirstAvailable (WifiMacHeader *hdr, Time &timestamp, const QosBlockedDestinations *blockedPackets){
 	Cleanup();
 	Ptr<const Packet> packet = 0;
 	for (PacketQueueI it = m_queue.begin(); it !=m_queue.end(); it++){
@@ -294,12 +298,12 @@ Ptr<const Packet> RED_MainBuff::DequeueFirstAvailable (WifiMacHeader *hdr, Time 
 	return packet;
 }
 
-Ptr<const Packet> RED_MainBuff::PeekFirstAvailable (WifiMacHeader *hdr, Time &tStamp, const QosBlockedDestinations *blockedPackets){
+Ptr<const Packet> RED_MainBuff::PeekFirstAvailable (WifiMacHeader *hdr, Time &timestamp, const QosBlockedDestinations *blockedPackets){
 	Cleanup();
 	for (PacketQueueI it = m_queue.begin(); it != m_queue.end(); it++){
 		if (!it->hdr.IsQosData() || !blockedPackets->IsBlocked(it->hdr.GetAddr1(), it->hdr.GetQosTid())){
 			*hdr = it->hdr;
-			timestamp = it-tstamp;
+			timestamp = it->tstamp;
 			return it->packet;
 		}
 	}
