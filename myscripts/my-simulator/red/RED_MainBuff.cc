@@ -76,6 +76,7 @@ Time RED_MainBuff::GetMaxDelay(){
 bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 	
 	try{
+		
 		RED_CRVU CRVU;
 		RED_PDPU PDPU;
 		RED_RPDU RPDU;

@@ -234,10 +234,10 @@ int main(int argc, char *argv[]) {
 	sim_settings.wifi_mode = "OfdmRate54Mbps";
 
 	// Max time to run a simulation, in seconds
-	sim_settings.sim_stop_time_sec = 10000;
+	sim_settings.sim_stop_time_sec = 60;
 
 	// Number of client network nodes. There is only one server node.
-	sim_settings.number_of_clients = 3;
+	sim_settings.number_of_clients = 50;
 
 	// Amount of data each client sends, in bytes.
 	sim_settings.transfer_data_bytes = 1048576; // One megabyte in bytes
@@ -247,7 +247,7 @@ int main(int argc, char *argv[]) {
 
 	// SCTP settings
 	sim_settings.sctp_ttl_ms = 0; // Time to live of packets in milliseconds (0 == ttl disabled)
-	sim_settings.sctp_unordered = 0; // Unordered packet delivery
+	sim_settings.sctp_unordered = 1; // Unordered packet delivery
 
 	// UDP and DCCP approximate client target send rate in kilobytes/second.
 	// Warning: Setting this to a higher value than the network topology allows
@@ -295,7 +295,7 @@ int main(int argc, char *argv[]) {
 	int *var = &sim_settings.transfer_data_bytes;
 	int min = 1048576 * 1;
 	int inc = 1048576 * 5;
-	int max = 1048576 * 100;
+	int max = 1048576 * 30;
 
 	for (*var = min; *var <= max; *var += inc) {
 		RunSimulation(DCCP, sim_settings);
