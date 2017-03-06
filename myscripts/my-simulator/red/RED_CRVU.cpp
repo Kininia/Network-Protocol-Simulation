@@ -21,3 +21,19 @@ using namespace std;
 		// Take the seed and return a value between 0 and 32767
 		return seed  % 2;
 	}
+
+	
+	main()
+	{
+		RED_CRVU CRVU;
+		
+		for (int i = 0; i <10; i++)
+		{
+		
+		cout  << CRVU.randomNumber(); << endl;
+		
+		}
+		
+		
+		return 0;
+	}
