@@ -13,7 +13,7 @@ class RED_CRVU{
 		/**
 		* Generates a random number between 0-1.
 		*/
-		double randomNumber ();
+		static double randomNumber ();
 };
 
 #endif

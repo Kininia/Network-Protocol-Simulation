@@ -130,9 +130,9 @@ void RunSimulation(Protocol protocol, SimSettings &sim_settings) {
 	WifiHelper wifi = WifiHelper::Default();
 	wifi.SetStandard(sim_settings.wifi_std);
 	wifi.SetRemoteStationManager("ns3::ConstantRateWifiManager", "DataMode", StringValue(sim_settings.wifi_mode), "ControlMode", StringValue(sim_settings.wifi_mode));
-	
+	//NqosWifiMacHelper wifiMac = NqosWifiMacHelper::Default();
+	//wifiMac.SetType("ns3::AdhocWifiMac");
 	REDWifiMacHelper wifiMac = REDWifiMacHelper();
-
 	YansWifiPhyHelper wifiPhy = YansWifiPhyHelper::Default();
 	YansWifiChannelHelper wifiChannel = YansWifiChannelHelper::Default();
 	wifiPhy.SetChannel(wifiChannel.Create());
@@ -240,10 +240,10 @@ int main(int argc, char *argv[]) {
 	sim_settings.sim_stop_time_sec = 60;
 
 	// Number of client network nodes. There is only one server node.
-	sim_settings.number_of_clients = 4;
+	sim_settings.number_of_clients = 5;
 
 	// Amount of data each client sends, in bytes.
-	sim_settings.transfer_data_bytes = 148576; // One megabyte in bytes
+	sim_settings.transfer_data_bytes = 1048576; // One megabyte in bytes
 
 	// Number of streams to create for SCTP simulation and/or sockets to create for UDP, TCP, DCCP.
 	sim_settings.num_sockets_streams = 4;
@@ -296,13 +296,14 @@ int main(int argc, char *argv[]) {
 
 	// Run the simulations over a variable span.
 	int *var = &sim_settings.transfer_data_bytes;
-	int min = 148576 * 1;
-	int inc = 148576 * 5;
-	int max = 148576 * 15;
+	int min = 1048576 * 1;
+	int inc = 1048576 * 5;
+	int max = 1048576 * 30;
 
 	LogComponentEnable("RED_MainBuff", LOG_LEVEL_INFO);
+	LogComponentEnable("RED_PDPU", LOG_LEVEL_INFO);
 
-	//for (*var = min; *var <= max; *var += inc) {
+	for (*var = min; *var <= max; *var += inc) {
 		//RunSimulation(DCCP, sim_settings);
 		//RunSimulation(UDP, sim_settings);
 		//RunSimulation(TCP, sim_settings);
@@ -312,6 +313,6 @@ int main(int argc, char *argv[]) {
 		if (remove_pcap_files) system(remove_pcap_files_cmd.c_str());
 		if (remove_parse_files) system(remove_parse_files_cmd.c_str());
 		if (remove_netanim_files) system(remove_netanim_files_cmd.c_str());
-	//}
+	}
 
 }

@@ -13,12 +13,11 @@ class RED_RPDU{
 	private:
 		bool discard_now;
 		bool done_drop;
-		double pdrop;
-		double q;
-
 		
 	public:
-		
+
+		RED_RPDU();
+
 		/**
 		* Compares two numbers from
 		* CRVU & PDPU respectively and
@@ -26,7 +25,7 @@ class RED_RPDU{
 		* on which is greater of them.
 		* 
 		*/
-		void calculate();	
+		void calculate(double);	
 		
 		/**
 		* Getter for done_drop state.

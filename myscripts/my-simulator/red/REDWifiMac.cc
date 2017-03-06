@@ -32,7 +32,7 @@ REDWifiMac::REDWifiMac ()
   m_dcfManager = new DcfManager ();
   m_dcfManager->SetupLowListener (m_low);
 
-  m_dca = CreateObject<DcaTxop> ();
+  m_dca = CreateObject<REDDcaTxop> ();
   m_dca->SetLow (m_low);
   m_dca->SetManager (m_dcfManager);
   m_dca->SetTxMiddle (m_txMiddle);
@@ -148,7 +148,7 @@ REDWifiMac::SetTypeOfStation (TypeOfStation type)
     }
 }
 
-Ptr<DcaTxop>
+Ptr<REDDcaTxop>
 REDWifiMac::GetDcaTxop () const
 {
   return m_dca;
@@ -714,7 +714,7 @@ REDWifiMac::GetTypeId (void)
     .AddAttribute ("DcaTxop", "The DcaTxop object",
                    PointerValue (),
                    MakePointerAccessor (&REDWifiMac::GetDcaTxop),
-                   MakePointerChecker<DcaTxop> ())
+                   MakePointerChecker<REDDcaTxop> ())
     .AddAttribute ("VO_EdcaTxopN",
                    "Queue that manages packets belonging to AC_VO access class",
                    PointerValue (),

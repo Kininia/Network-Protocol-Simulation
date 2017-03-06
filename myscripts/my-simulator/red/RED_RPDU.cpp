@@ -2,16 +2,18 @@
 
 #include "RED_RPDU.h"
 
+#include "RED_CRVU.h"
+
 namespace ns3{
 
-void RED_RPDU::calculate() {
-	RED_PDPU PDPU;
-	RED_CRVU CRVU;
-	
-	
-	pdrop = PDPU.get_pb();
-	
-	q = CRVU.randomNumber();
+RED_RPDU::RED_RPDU() :
+discard_now(false),
+done_drop(false)
+{}
+
+void RED_RPDU::calculate(double pdrop) {
+
+	double q = RED_CRVU::randomNumber();
 	
 	if (q <= pdrop) {
 		discard_now = true;

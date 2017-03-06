@@ -2,30 +2,22 @@
 
 #ifndef RED_PDPU_H
 #define RED_PDPU_H
-#include "RED_MainBuff.h"
+
 
 namespace ns3{
 
 class RED_PDPU {
 	
 	public:
-		bool start_pdrop = false;
-		bool enqueue_now = false;
-		bool done_pdrop = false;
-		bool drop_early = false;
-		double qw;
-		int minth;
-		int maxth;
-		double avgQ;
-		int maxp;
-		double tm;
-		int ql;
+
+		RED_PDPU();
+
 		
 		/**
 		* Calculate average length of the queue.
 		* 
 		*/
-		void calc_avgQ();
+		void calc_avgQ(int);
 
 		/**
 		* Checks average queue length and
@@ -54,12 +46,6 @@ class RED_PDPU {
 		* \return drop probability of pakage.
 		*/
 		double get_pb();
-		
-		/**
-		* Getter for queue length from MainBuff
-		*
-		*/
-		void get_ql();
 		
 		/**
 		* Getter for enqueue_now state.
@@ -107,6 +93,17 @@ class RED_PDPU {
 		double pb;
 		double pa;
 		int count;
+
+		bool start_pdrop;
+		bool enqueue_now;
+		bool done_pdrop;
+		bool drop_early;
+		double qw;
+		int minth;
+		int maxth;
+		double avgQ;
+		double maxp;
+		double tm;
 		
 };
 

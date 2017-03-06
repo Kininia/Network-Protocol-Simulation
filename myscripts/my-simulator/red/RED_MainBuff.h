@@ -14,6 +14,10 @@
 #include "RED_RPDU.h"
 #include "RED_CRVU.h"
 
+#include "ns3/log.h"
+
+#include <vector>
+
 namespace ns3 {
 class QosBlockedDestinations;
 
@@ -23,7 +27,9 @@ class RED_MainBuff : public Object
 	
 	private:
 		//Creates objects for the respective RED modules.
-		
+		RED_PDPU PDPU;
+		RED_RPDU RPDU;
+		static std::vector<RED_MainBuff *> v;
 		
 	public:
 
@@ -32,13 +38,13 @@ class RED_MainBuff : public Object
 		~RED_MainBuff (); //Shortcut for flush().
 
 		//Different states for the RED algorithm.
-		bool cell_ready = false;
-		bool start_pdrop = false;
-		bool enqueue_now = false;
-		bool done_drop = false;
-		bool done_pdrop = false;
-		bool drop_early = false;
-		bool discard_now = false;
+		bool cell_ready;
+		bool start_pdrop;
+		bool enqueue_now;
+		bool done_drop;
+		bool done_pdrop;
+		bool drop_early;
+		bool discard_now;
 		/**
 		* Set the maximum queue size.
 		*

@@ -1,30 +1,61 @@
 
 #include "RED_PDPU.h"
+#include "ns3/log.h"
 
 namespace ns3{
 
-void RED_PDPU::calc_avgQ(){
-	get_ql();
+NS_LOG_COMPONENT_DEFINE ("RED_PDPU");
+
+//NS_OBJECT_ENSURE_REGISTERED (RED_MainBuff);
+
+RED_PDPU::RED_PDPU() : 
+start_pdrop(false),
+enqueue_now(false),
+done_pdrop(false),
+drop_early(false),
+pb(0),
+pa(0),
+count(0),
+qw(0),
+minth(0),
+maxth(0),
+avgQ(0),
+maxp(0),
+tm(0)
+{
+	qw = 0.002;
+	minth = 3;
+	maxth = 9;
+
+	maxp = 0.5;
+}
+
+void RED_PDPU::calc_avgQ(int ql){
 	avgQ = qw*ql + (1 - qw)*avgQ;
 }
 
 
 void RED_PDPU::check_avgQ(){
+	NS_LOG_FUNCTION(this);
+	enqueue_now = false;
+	done_pdrop = false;
+	drop_early = false;
 			
 	if (avgQ < minth){
-		count = 0; //try -1
+		count = 0;
 		enqueue_now = true;
 	} 
-	else if(minth <= avgQ < maxth){
+	else if(minth <= avgQ && avgQ < maxth){
 		count = count + 1;
 		calc_pb();
 		done_pdrop = true;
 	}
-	else if (avgQ >= maxth){
+	//DOES NOTHING!
+	/*else if (avgQ >= maxth){
 		count = 0;		
-		calc_pb();		
+		calc_pa();		
 		drop_early=true;
-	}
+	}*/
 
 }
 						
@@ -46,13 +77,6 @@ double RED_PDPU::get_pb(){
 			
 	return pb;
 }
-
-
-void RED_PDPU::get_ql(){
-	RED_MainBuff buff;
-	ql = buff.GetSize();
-}	
-
 
 bool RED_PDPU::getState_enqueueNow(){
 	return enqueue_now;

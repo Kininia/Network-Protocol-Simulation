@@ -9,6 +9,8 @@
 #include "ns3/qos-utils.h"
 #include <map>
 
+#include "REDDcaTxop.h"
+
 namespace ns3 {
 
 class Dcf;
@@ -229,7 +231,7 @@ protected:
 
   /** This holds a pointer to the DCF instance for this WifiMac - used
   for transmission of frames to non-QoS peers. */
-  Ptr<DcaTxop> m_dca;
+  Ptr<REDDcaTxop> m_dca;
 
   /** This type defines a mapping between an Access Category index,
   and a pointer to the corresponding channel access function */
@@ -244,7 +246,7 @@ protected:
    *
    * \return a smart pointer to DcaTxop
    */
-  Ptr<DcaTxop> GetDcaTxop (void) const;
+  Ptr<REDDcaTxop> GetDcaTxop (void) const;
 
   /**
    * Accessor for the AC_VO channel access function

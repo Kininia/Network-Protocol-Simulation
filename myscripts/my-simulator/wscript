@@ -12,24 +12,102 @@ def build(bld):
 				  target='bin/my-simulator',
 				  source=['DataParser.cc', 'my-simulator.cc'])
 
+#########################################################################################
+
+	# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimREG_UDP',
+				  source=['DataParser.cc', 'SimREG_UDP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimREG_TCP',
+				  source=['DataParser.cc', 'SimREG_TCP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimREG_SCTP',
+				  source=['DataParser.cc', 'SimREG_SCTP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimREG_DCCP',
+				  source=['DataParser.cc', 'SimREG_DCCP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimREG_All',
+				  source=['DataParser.cc', 'SimREG_All.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/demoShort',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'demoShort.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimRED_UDP',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'SimRED_UDP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimRED_TCP',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'SimRED_TCP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimRED_SCTP',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'SimRED_SCTP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimRED_DCCP',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'SimRED_DCCP.cc'])
+
+
+#########################################################################################
+# NS-3 simulator script
+	bld.build_a_script('dce',
+				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
+				  target='bin/SimRED_All',
+				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'SimRED_All.cc'])
+
+
+#########################################################################################
+
 	#RED temp
 	bld.build_a_script('dce',
 				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
 				  target='bin/my-simulator-red',
 				  source=['red/RED_MainBuff.cc','red/RED_PDPU.cc','red/RED_RPDU.cpp','red/RED_CRVU.cpp', 'red/REDDcaTxop.cc', 'red/REDWifiMac.cc', 'red/REDWifiMacHelper.cc', 'DataParser.cc', 'my-simulator-red.cc'])
-
-
-	# NS-3 simulator script (DEMO1)
-	bld.build_a_script('dce',
-				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
-				  target='bin/demo1',
-				  source=['DataParser.cc', 'demo1.cc'])
-
-	# NS-3 simulator script (DEMO2)
-	bld.build_a_script('dce',
-				  needed = ['core', 'network', 'dce', 'point-to-point', 'csma', 'netanim'],
-				  target='bin/demo2',
-				  source=['DataParser.cc', 'demo2.cc'])
 
 
 	# SCTP client/server
