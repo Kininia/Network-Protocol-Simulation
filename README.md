@@ -10,7 +10,8 @@
 
 cd ~
 
-sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev mercurial bzr cmake libc6-dev g++-multilib gsl-bin libgsl0-dev libgsl2 flex bison libfl-dev tcpdump sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev libgtk2.0-0 libgtk2.0-dev vtun lxc doxygen graphviz imagemagick git python-pygraphviz python-pygoocanvas libgoocanvas-dev python-setuptools libpcap-dev libdb-dev libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs unrar p7zip-full autoconf
+sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev mercurial bzr cmake libc6-dev g++-multilib gsl-bin libgsl0-dev libgsl2 flex bison libfl-dev tcpdump sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev libgtk2.0-0 libgtk2.0-dev vtun lxc doxygen graphviz imagemagick git python-pygraphviz python-pygoocanvas \
+libgoocanvas-dev python-setuptools libpcap-dev libdb-dev libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs unrar p7zip-full autoconf
 
 hg clone http://code.nsnam.org/bake bake
 export BAKE_HOME=`pwd`/bake
@@ -26,9 +27,16 @@ sed -i '75s/.*//' source/ns-3-dce/test/test-tsearch.cc
 
 bake.py build
 ~~~~
+[Link to installation script on NS3 webpage](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
 
 ###Installation of RED
-
+~~~~
+cd $NS3_HOME/source/ns-3-dce
+git init
+git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
+git fetch
+git checkout -t origin/master
+~~~~
 
 
 ### Project Link
