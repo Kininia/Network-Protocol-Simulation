@@ -5,7 +5,7 @@
 ###Dependencies
 
 ###Installation script for environment
-~~~~
+~~~~ bash
 #!/bin/bash
 
 cd ~
