@@ -24,10 +24,10 @@ maxp(0),
 tm(0)
 {
 	qw = 0.002;
-	minth = 3;
-	maxth = 9;
+	minth = 10;
+	maxth = 30;
 
-	maxp = 0.5;
+	maxp = 0.025;
 }
 
 void RED_PDPU::calc_avgQ(int ql){
@@ -50,12 +50,11 @@ void RED_PDPU::check_avgQ(){
 		calc_pb();
 		done_pdrop = true;
 	}
-	//DOES NOTHING!
-	/*else if (avgQ >= maxth){
+	else if (avgQ >= maxth){
 		count = 0;		
 		calc_pa();		
 		drop_early=true;
-	}*/
+	}
 
 }
 						

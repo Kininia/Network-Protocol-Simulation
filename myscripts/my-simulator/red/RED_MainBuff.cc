@@ -24,8 +24,6 @@ NS_LOG_COMPONENT_DEFINE ("RED_MainBuff");
 NS_OBJECT_ENSURE_REGISTERED (RED_MainBuff);
 
 
-std::vector<RED_MainBuff *> RED_MainBuff::v;
-
 RED_MainBuff::Item::Item (Ptr<const Packet> packet, const WifiMacHeader &hdr, Time tstamp)
   : packet (packet),
     hdr (hdr),
@@ -39,7 +37,7 @@ TypeId RED_MainBuff::GetTypeId (void){
     .SetGroupName ("Wifi")
     .AddConstructor<RED_MainBuff> ()
     .AddAttribute ("MaxPacketNumber", "If a packet arrives when there are already this number of packets, it is dropped.",
-                   UintegerValue (20),
+                   UintegerValue (50),
                    MakeUintegerAccessor (&RED_MainBuff::m_maxSize),
                    MakeUintegerChecker<uint32_t> ())
     .AddAttribute ("MaxDelay", "If a packet stays longer than this delay in the queue, it is dropped.",
@@ -60,20 +58,7 @@ done_pdrop(false),
 drop_early(false),
 discard_now(false)
 {
-	int stuff = 0;
-	for (int i = 0; i < v.size(); i++)
-	{
-		if (v[i] == this)
-		{
-			break;
-		}
-		stuff++;
-	}
-	if (stuff >= v.size())
-	{
-		v.push_back(this);
-	}
-	//NS_LOG_INFO(v.size());
+	
 }
 
 RED_MainBuff::~RED_MainBuff()
@@ -101,7 +86,7 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 
 	NS_LOG_FUNCTION (this);
 	
-	NS_LOG_INFO("Queue length: " << m_size << "(/" << m_maxSize << ")" << "Address: " << this);
+	//NS_LOG_INFO("Queue length: " << m_size << "(/" << m_maxSize << ")" << "Address: " << this);
 	/*if (m_size >= m_maxSize)
 	{
 		NS_LOG_INFO("Queue length: " << m_size << "(/" << m_maxSize << ")");
@@ -148,12 +133,12 @@ bool RED_MainBuff::Enqueue(Ptr<const Packet> packet, const WifiMacHeader &hdr){
 			
 		}
 		//NEVER HAPPENS!
-		/*else if (drop_early){
+		else if (drop_early){
 			PDPU.calc_pb();
 			PDPU.calc_pa();
-			NS_LOG_INFO("DROPPED PACKET (drop_early)");
+			//NS_LOG_INFO("DROPPED PACKET (drop_early)");
 			return false;
-		}*/
+		}
 		else {
 			throw 2;
 		}
@@ -202,7 +187,7 @@ void RED_MainBuff::Cleanup(){
 
 Ptr<const Packet> RED_MainBuff::Dequeue(WifiMacHeader *hdr){
 	NS_LOG_FUNCTION(this);
-	NS_LOG_INFO("Dequeue  " << this);
+	//NS_LOG_INFO("Dequeue  " << this);
 	Cleanup();
 	if (!m_queue.empty()){
 		Item i = m_queue.front();

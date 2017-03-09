@@ -131,6 +131,9 @@ void RunSimulation(Protocol protocol, SimSettings &sim_settings) {
 	wifi.SetStandard(sim_settings.wifi_std);
 	wifi.SetRemoteStationManager("ns3::ConstantRateWifiManager", "DataMode", StringValue(sim_settings.wifi_mode), "ControlMode", StringValue(sim_settings.wifi_mode));
 	
+	//RED or NOT RED
+	//NqosWifiMacHelper wifiMac = NqosWifiMacHelper::Default();
+	//wifiMac.SetType("ns3::AdhocWifiMac");
 	REDWifiMacHelper wifiMac = REDWifiMacHelper();
 
 	YansWifiPhyHelper wifiPhy = YansWifiPhyHelper::Default();

@@ -207,14 +207,14 @@ void RunSimulation(Protocol protocol, SimSettings &sim_settings) {
 	}
 
 	// NetAnim tracing
-	AnimationInterface anim(output_filename + "-netanim.xml");
+	/*AnimationInterface anim(output_filename + "-netanim.xml");
 	anim.EnableIpv4L3ProtocolCounters(Seconds(0), sim_stop_time);
 	anim.EnableQueueCounters(Seconds(0), sim_stop_time);
 	anim.UpdateNodeColor(0, 255, 255, 0); // Yellow colored server
 	anim.UpdateNodeDescription(0, "server");
 	for (int i = 1; i < number_of_nodes; i++) {
 		anim.UpdateNodeDescription(i, "client" + to_string(i));
-	}
+	}*/
 
 	Simulator::Stop(sim_stop_time);
 	Simulator::Run();
@@ -237,13 +237,13 @@ int main(int argc, char *argv[]) {
 	sim_settings.wifi_mode = "OfdmRate54Mbps";
 
 	// Max time to run a simulation, in seconds
-	sim_settings.sim_stop_time_sec = 10000;
+	sim_settings.sim_stop_time_sec = 1000;
 
 	// Number of client network nodes. There is only one server node.
 	sim_settings.number_of_clients = 30;
 
 	// Amount of data each client sends, in bytes.
-	sim_settings.transfer_data_bytes = 1048576; // One megabyte in bytes
+	sim_settings.transfer_data_bytes = 1048576/10; // One megabyte in bytes
 
 	// Number of streams to create for SCTP simulation and/or sockets to create for UDP, TCP, DCCP.
 	sim_settings.num_sockets_streams = 4;
@@ -296,9 +296,9 @@ int main(int argc, char *argv[]) {
 
 	// Run the simulations over a variable span.
 	int *var = &sim_settings.transfer_data_bytes;
-	int min = 1048576 * 1;
-	int inc = 1048576 * 1;
-	int max = 1048576 * 5;
+	int min = (1048576/10) * 1;
+	int inc = (1048576/10) * 1;
+	int max = (1048576/10) * 10;
 
 	LogComponentEnable("RED_MainBuff", LOG_LEVEL_INFO);
 	LogComponentEnable("RED_PDPU", LOG_LEVEL_INFO);
@@ -306,7 +306,7 @@ int main(int argc, char *argv[]) {
 	for (*var = min; *var <= max; *var += inc) {
 		//RunSimulation(DCCP, sim_settings);
 		//RunSimulation(UDP, sim_settings);
-		//RunSimulation(TCP, sim_settings);
+		RunSimulation(TCP, sim_settings);
 		RunSimulation(SCTP, sim_settings);
 		
 		if (remove_dce_file_system) system("rm -rf files-*");

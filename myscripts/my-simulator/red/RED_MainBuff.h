@@ -29,7 +29,6 @@ class RED_MainBuff : public Object
 		//Creates objects for the respective RED modules.
 		RED_PDPU PDPU;
 		RED_RPDU RPDU;
-		static std::vector<RED_MainBuff *> v;
 		
 	public:
 
