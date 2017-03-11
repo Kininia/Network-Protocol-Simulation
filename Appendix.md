@@ -6,81 +6,61 @@ Appendix
 
 
 March 11, 2017
+<style>
+{list-style-type:decimal;
+}
+</style>
+1. [Introduction](#Introduction)
+2. [Installation](#Installation)
+    1. Dependency Libraries
+    2. NS-3 with DCE
+    3. System Settings
+    4. Downloading the project
+3. Running the simulator
+    1. Starting
+    2. Plotting
+    3. Configuration Simulation Parameters
+        1. WiFi Standard
+        2. Simulation stop time
 
 
-
-
-
-
-D0020E	1
-PR-SCTP over IEEE 802.11	1
-Appendix	1
-Introduction	3
-Installation	3
-Dependency Libraries	3
-NS-3 with DCE	3
-System settings	4
-Downloading the project	4
-Running the simulator	5
-Starting	5
-Plotting	5
-Configuration Simulation Parameters	5
-Wifi standard	5
-Simulation stop time	5
-Number of clients	5
-Transfer Bytes	5
-Socket and Streams	5
-SCTP	5
-UDP and DCCP	5
-Cycles	5
-Output	5
-Variable Span	5
-NS-PLOT	5
-Introduction	5
-Use Gnuplot	6
-Input files	6
-Functionality	6
-Usage of NS-PLOT	6
-Argument format	6
-Creating a plot	6
-Running NS-PLOT within the projekt	6
-
-### Introduction
-Installation
+## 1. Introduction
+## 2. Installation
 	Before you can run anything, you need to install the dependencies, NS-3 and DCE.
-Dependency Libraries
+### 2.1 Dependency Libraries
 Use the following command to get all libraries along with NS-3 and DCE has to be installed.
 	
-NS-3 with DCE
+### 2.2 NS-3 with DCE
 	Run the script below to install NS-3 with DCE.
 
 If there are a problem with installing the dce-linux-1.7.
 You could try doing this (as some computers have a problem with the python code in the installation script):
 
-CARL STUFF PYTHON STUFF
+# CARL STUFF PYTHON STUFF
+![Screenshot of moving nodes](https://cloud.githubusercontent.com/assets/6905219/23822639/dd899208-0650-11e7-82c1-048080881562.png "Screenshot of moving nodes")
 
 The original installation instructions from the NS-3 webpage.
 
 
-System settings
+### 2.3 System settings
 Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to
 append the following lines to the end of 
 
 Restart your computer to apply the settings. For more information see the DCE manual
-Downloading the project
+### 2.4 Downloading the project
 	Assuming that the NS-3 DCE installation directory is:
 	
-Running the simulator
+## 3. Running the simulator
 The simulator is built to run in the system terminal. The simulator first runs a simulation for each of the network protocols implemented then it parses the data from the dumped .pcap files into .dat files for the plotting program. Each protocol implemented has both a client and a server class. A diagram of the entire simulator is shown in figure 1.
 
 Running the simulator is done through the terminal.
 
-Starting
+### 3.1 Starting
 To run the simulator, run the following commands	
-Plotting
+### 3.2 Plotting
 The plotting program is separate from the simulation. To plot the results from a simulation, run:
 
-Configuration Simulation Parameters
+### 3.3 Configuration Simulation Parameters
 There are several premade scripts that are ready to be run. The scripts are named SimRED or SimREG depending on if it uses RED or not. Then they are named after which protocols they are running. For example SimREG_All, runs all of the scripts. While SimRED_SCTP, runs the SCTP protocol with RED. The different scripts that are premade are:
 ```
 SimREG_All
@@ -96,7 +76,7 @@ SimRED_SCTP
 ```
 
 In order to change the parameters for the simulator the main section of the script has to be edited. 
-Wifi standard
+#### 3.3.1 Wifi standard
 The following lines has to be edited in order to change what Wifi standard the simulator uses.
 
 Currently there are five different Wifi standards implemented.
@@ -104,16 +84,16 @@ Currently there are five different Wifi standards implemented.
 There are also many different data rates implemented. Here are a few examples.
 
 
-Simulation stop time
+#### 3.3.2 Simulation stop time
 	By changing the variable, one changes the max time 
-Number of clients
-Transfer Bytes
-Socket and Streams
-SCTP
-UDP and DCCP
-Cycles
-Output
-Variable Span
+#### 3.3.3 Number of clients
+#### 3.3.4 Transfer Bytes
+#### 3.3.5 Socket and Streams
+#### 3.3.6 SCTP
+#### 3.3.7 UDP and DCCP
+#### 3.3.8 Cycles
+#### 3.3.9 Output
+#### 3.3.10 Variable Span
 NS-PLOT
 Introduction
 NS-PLOT is a module within the project PR-SCTP over IEEE 802.11 which is responsible for the visual representation of the simulation result. NS-PLOT is a seperate program, which will create plots from the output of the NS-3 simulation script. NS-PLOT takes one or more .dat files as input and output a single plot (represented as a .png file). 
