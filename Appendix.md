@@ -1,3 +1,10 @@
+<ol type="1">
+<li>hej </li>
+<li>hej
+<ol>
+</li>
+
+
 ## 1. Introduction
 ## 2. Installation
 Before you can run anything, you need to install the dependencies, NS-3 and DCE.
@@ -55,7 +62,7 @@ You could try doing this (as some computers have a problem with the python code 
 
 # CARL STUFF PYTHON STUFF
 
-![The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
+![The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode "https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode")
 
 
 ### 2.3 System settings
