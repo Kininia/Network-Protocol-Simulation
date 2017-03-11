@@ -35,7 +35,7 @@ cd $NS3_HOME/source/ns-3-dce
 git init
 git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
 git fetch
-git checkout -t origin/master
+git checkout -b my-topic-branch
 ~~~~
 
 
