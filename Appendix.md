@@ -1,4 +1,4 @@
-
+[//]: <> (<div style="page-break-after: always;"></div>)
 <!-- TOC -->
 
 - [1. Introduction](#1-introduction)
@@ -91,7 +91,6 @@ You could try doing this (as some computers have a problem with the python code 
 **CARL STUFF PYTHON STUFF**
 
 [The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
-
 
 ## 2.3. System settings
 Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to append the following lines to the end of 
