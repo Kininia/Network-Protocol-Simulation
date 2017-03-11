@@ -35,11 +35,12 @@ bake.py build
 
 ###Installation of RED
 ~~~~
-cd $NS3_HOME/source/ns-3-dce
+cd
+cd dce/source/ns-3-dce
 git init
 git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
 git fetch
-git checkout -b my-topic-branch
+git checkout -t origin/master
 ~~~~
 
 
