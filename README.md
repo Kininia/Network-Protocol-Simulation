@@ -11,6 +11,7 @@
 cd ~
 
 sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev mercurial bzr cmake libc6-dev g++-multilib gsl-bin libgsl0-dev libgsl2 flex bison libfl-dev tcpdump sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev libgtk2.0-0 libgtk2.0-dev vtun lxc doxygen graphviz imagemagick git python-pygraphviz python-pygoocanvas \
+
 libgoocanvas-dev python-setuptools libpcap-dev libdb-dev libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs unrar p7zip-full autoconf
 
 hg clone http://code.nsnam.org/bake bake
