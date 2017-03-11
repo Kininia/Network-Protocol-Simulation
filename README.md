@@ -32,6 +32,20 @@ sed -i '75s/.*//' source/ns-3-dce/test/test-tsearch.cc
 bake.py build
 ~~~~
 [Link to installation script on NS3 webpage](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
+~~~~
+/etc/security/limits.conf
+~~~~
+
+~~~~
+*         hard    nproc       65536
+*         soft    nproc       65536
+*         hard    nofile      65536
+*         soft    nofile      65536
+~~~~
+Restart your computer to apply the settings. For more information see the [DCE Manual](https://www.nsnam.org/docs/dce/release/1.4/manual/singlehtml/index.html#processes-limit-resource-temporarily-unavailable).
+
+###Required system settings
+Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to append the following lines to the end of 
 
 ###Installation of RED
 ~~~~
