@@ -1,10 +1,3 @@
-<ol type="1">
-<li>hej </li>
-<li>hej
-<ol>
-</li>
-
-
 ## 1. Introduction
 ## 2. Installation
 Before you can run anything, you need to install the dependencies, NS-3 and DCE.
