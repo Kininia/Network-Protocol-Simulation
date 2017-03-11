@@ -170,3 +170,89 @@ Configuring cycles changes if the simulator should run on/off sources or a singl
 The output directory for the simulator can be configured by the ```sim_settings.output_dir``` variable and is currently set to ```”/my-simulator-output/”```.
 #### 3.3.10 Variable Span
 In order to change what variable span to iterate over the int *var variable has to be altered. It takes the memory address of the variable of iteration. One also has to change the ```int min, max, inc``` variables to fit the new iteration variable and if necessary change the loop itself.
+
+Simulation stop time
+	By changing the variable, one changes the max time 
+Number of clients
+Transfer Bytes
+Socket and Streams
+SCTP
+UDP and DCCP
+Cycles
+Output
+Variable Span
+## 4. NS-PLOT
+### 4.1. Introduction
+*NS-PLOT* is a module within the project *PR-SCTP over IEEE 802.11* which is responsible for the visual representation of the simulation result. *NS-PLOT* is a seperate program, which will create plots from the output of the *NS-3* simulation script. *NS-PLOT* takes one or more *.dat* files as input and output a single plot (represented as a *.png* file). 
+### 4.2 Use of Gnuplot
+*NS-PLOT* uses *Gnuplot* for plotting. *Gnuplot* is a command-line program that can generate two- and three-dimensional plots of functions,data and data fits. Its frequently used for publication-quality graphics as well as education. The program runs on all major computers and operating systems (*GNU/Linux, Unix, Microsoft Windows, Mac OS X,* and others). IT is a program with a fairly long history, dating back to 1986.
+
+*NS-PLOT* is handling the destination of input and output files, as well as the desired parameters, labels and type of graph (2D and 3D). This information is then passed to *Gnuplot* via a system call (**system()** function) which will generate an output plot.
+### 4.3 Input files
+The software takes at least one *.dat* file as input (limited to one file for 3D-plotting). These files contain the simulation summary. Each row in a *.dat* file stores a specific information about one simulation, for example, by looking at the figure below, we can see that the total amount of frames sent was 8129 it took approximately 5.03 seconds to transfer the total data of 10.73 Megabytes of data, of which 10 megabytes was the raw (actual/useful) data and so on. More information about the parameters can be found in subsection 4.3.
+
+![.dat example](https://cloud.githubusercontent.com/assets/11329652/23823642/11543960-0667-11e7-87c7-49029ee7f8db.PNG)
+
+
+
+Those simulation files should also be formatted according to a predefined pattern. The parameters should be separated by a single line space, there should be equal amount of parameters in each row, every parameter should either be a real number or be assigned a *NaN* (Not-a-Number) value.
+### 4.4 Functionality
+The software supports both 2D- and 3D plotting of simulation data. The user can assign one of 13 available parameters to each axis. The list of parameters is displayed below:
+
+* **Frames (id= 1)** - Number of frames (packets) sent during the transmission.
+* **Transmission time (id = 2)** - Total transmission time in seconds (s).
+* **Data with headers (id = 3)** - Total amount of data transferred (including header data) in Megabytes (Mb).
+* **Data no headers (id = 4)** - Total amount of data transferred (header data not included) in Megabytes (Mb). 
+* **Data expected (id = 5)** - Expected amount of raw data to be sent in Megabytes (Mb).
+* **Data percentage (id = 6)** - Percentage of raw data transferred.
+* **Data loss percentage (id = 7)** - Percentage of data that has been lost during the transmission. 
+* **Transmission speed (id = 8)** - Average transmission speed in Megabytes per seconds (Mb/s).
+* **Average frame size (id = 9)** - Average frame (packet) size for the transmission in bytes (b).
+* **Data chunks (id = 10)** -Number of data chunks transmitted (*SCTP* only). 
+* **Average chunk size (id = 11)** - Average chunk size for the transmission (*SCTP* only).
+* **Clients (id = 12)** - Number of clients which participated in the transmission
+* **Streams/sockets per client (id = 13)** - Number of streams/sockets per client. Streams are specific for *SCTP* protocol.
+
+*NS-PLOT* supports viewing of multiple simulations on the same data plot. This option is only available for 2D-plotting and can be useful for comparing simulation results to each other. The labels and keys are set automatically by the software, according to the chosen parameters
+### 4.5 Usage of NS-PLOT
+*NS-PLOT*  is seperated from the *NS-3 DCE* simulation script. It is highly recomended that the *C++* code is compiled by using the *gcc* compiler with *-std=c++* flag. After the compilation the software can be started from the terminal by changing the directory to the one where the *NS-PLOT* executable file is stored. A new user of the software may use the command with the *-help* flag to get some basic information about the program, as described below.
+````
+./NSplot -help
+````
+### 4.5.1 Argument format
+The input file(s) and output destination are passed on into the program by listing them in the bash command (a single space shall be added in between each of the files). The *-dim* flag should be given as the last argument in the command. The only two possible values for the *-dim* flag are *-2d* or *-3d*.
+The correct format of arguments can be seen below.
+````
+./NSplot output_file input_file_1 input_file_2 ... input_file_n -dim
+````
+An argument error can be generated if the format, given above, is not followed. File not found error will occur if one of the input files is non-existent. Dimension error may occur by either passing the wrong *-dim* flag, or by passing more than one input file from the terminal in 3D mode.
+
+### 4.5.2 Creating a plot
+In the example below, *SCTP* and *TCP* protocols were simulated by increasing the amount of sent data by 2 Megabytes at a time from 2 Megabytes to 100, by using our *NS-3* simulation script. The simulation results were stored in *sctp_simtotal.dat* for the simulation of *SCTP* and *tcp* simtotal.dat for the simulation of *TCP* protocol.
+
+Let us define a case, where user wants to study how the percentage of useful data is affected by increasing the size of the file to transfer across a wireless link. The output should be a two-dimensional plot, stored in perc size.png file which will be located in the same folder. The correct command for starting up *NS-PLOT* will look as follows.
+
+````
+./NSplot perc_size.png sctp_simtotal.dat tcp_simtotal.dat -2d
+````
+
+Once the correct arguments are passed to the program and it starts running, user gets to choose the parameters which will be plotted against each other. The parameter which corresponds to the size of the file which was transferred is *Data no headers* parameter. This parameter has identification number 4, so user shall type number 4 to assign it to *x*-axis. The dependent parameter, which in this example is the percentage of useful/raw data, corresponds to *Data percentage* parameter. This parameter has identification number 6, and is assigned to the *y*-axis by typing 6 in to the program. The process is also described i figure 5
+
+![Plotting Example](https://cloud.githubusercontent.com/assets/11329652/23823945/a9f9ccec-066d-11e7-85c5-3378fbebd4b7.PNG)
+
+Once the parameters are typed in correctly, *NS-PLOT* will generate an output, which will appear on the screen, as seen in the picture below.
+### 4.5.3 Running NS-PLOT within the project
+*NS-PLOT* is included in the project's *GitHub* repository and is compiled along with other libraries and helper-classes. Once all the components are installed and the user is able to perform simulations, the *NS-PLOT* module can be initiated by moving into the directory with the executable file.
+
+````
+cd dce/source/ns-3-dce
+````
+
+And running the following command to start the software with all simulation *.dat* files as input 
+
+````
+build/myscripts/my-simulator/bin/./NSplot output.png my-simulator-output/*.dat -2d
+````
+
+Now, that the software is running, one can follow the steps provided in section 4.5.2 to create plots of the simulation data.
+
