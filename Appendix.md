@@ -241,6 +241,10 @@ Once the correct arguments are passed to the program and it starts running, user
 ![Plotting Example](https://cloud.githubusercontent.com/assets/11329652/23823945/a9f9ccec-066d-11e7-85c5-3378fbebd4b7.PNG)
 
 Once the parameters are typed in correctly, *NS-PLOT* will generate an output, which will appear on the screen, as seen in the picture below.
+
+![Plot Example](https://cloud.githubusercontent.com/assets/11329652/23823987/af4419a4-066e-11e7-9436-67644c0e0507.PNG)
+
+
 ### 4.5.3 Running NS-PLOT within the project
 *NS-PLOT* is included in the project's *GitHub* repository and is compiled along with other libraries and helper-classes. Once all the components are installed and the user is able to perform simulations, the *NS-PLOT* module can be initiated by moving into the directory with the executable file.
 
