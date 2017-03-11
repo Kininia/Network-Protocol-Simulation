@@ -3,40 +3,40 @@
 
 - [1. Introduction](#1-introduction)
 - [2. Installation](#2-installation)
-    - [2.1 Dependency Libraries](#21-dependency-libraries)
-    - [2.2 NS-3 with DCE](#22-ns-3-with-dce)
-    - [2.3 System settings](#23-system-settings)
-    - [2.4 Downloading the project](#24-downloading-the-project)
+    - [2.1. Dependency Libraries](#21-dependency-libraries)
+    - [2.2. NS-3 with DCE](#22-ns-3-with-dce)
+    - [2.3. System settings](#23-system-settings)
+    - [2.4. Downloading the project](#24-downloading-the-project)
 - [3. Running the simulator](#3-running-the-simulator)
-    - [3.1 Starting](#31-starting)
-    - [3.2 Plotting](#32-plotting)
-    - [3.3 Configuration Simulation Parameters](#33-configuration-simulation-parameters)
-        - [3.3.1 Wifi standard](#331-wifi-standard)
-        - [3.3.2 Simulation stop time](#332-simulation-stop-time)
-        - [3.3.3 Number of clients](#333-number-of-clients)
-        - [3.3.4 Transfer Bytes](#334-transfer-bytes)
-        - [3.3.5 Socket and Streams](#335-socket-and-streams)
-        - [3.3.6 SCTP](#336-sctp)
-        - [3.3.7 UDP and DCCP](#337-udp-and-dccp)
-        - [3.3.8 Cycles](#338-cycles)
-        - [3.3.9 Output](#339-output)
-        - [3.3.10 Variable Span](#3310-variable-span)
+    - [3.1. Starting](#31-starting)
+    - [3.2. Plotting](#32-plotting)
+    - [3.3. Configuration Simulation Parameters](#33-configuration-simulation-parameters)
+        - [3.3.1. Wifi standard](#331-wifi-standard)
+        - [3.3.2. Simulation stop time](#332-simulation-stop-time)
+        - [3.3.3. Number of clients](#333-number-of-clients)
+        - [3.3.4. Transfer Bytes](#334-transfer-bytes)
+        - [3.3.5. Socket and Streams](#335-socket-and-streams)
+        - [3.3.6. SCTP](#336-sctp)
+        - [3.3.7. UDP and DCCP](#337-udp-and-dccp)
+        - [3.3.8. Cycles](#338-cycles)
+        - [3.3.9. Output](#339-output)
+        - [3.3.10. Variable Span](#3310-variable-span)
 - [4. NS-PLOT](#4-ns-plot)
     - [4.1. Introduction](#41-introduction)
-    - [4.2 Use of Gnuplot](#42-use-of-gnuplot)
-    - [4.3 Input files](#43-input-files)
-    - [4.4 Functionality](#44-functionality)
-    - [4.5 Usage of NS-PLOT](#45-usage-of-ns-plot)
-        - [4.5.1 Argument format](#451-argument-format)
-        - [4.5.2 Creating a plot](#452-creating-a-plot)
-        - [4.5.3 Running NS-PLOT within the project](#453-running-ns-plot-within-the-project)
+    - [4.2. Use of Gnuplot](#42-use-of-gnuplot)
+    - [4.3. Input files](#43-input-files)
+    - [4.4. Functionality](#44-functionality)
+    - [4.5. Usage of NS-PLOT](#45-usage-of-ns-plot)
+        - [4.5.11. Argument format](#4511-argument-format)
+        - [4.5.12. Creating a plot](#4512-creating-a-plot)
+        - [4.5.13. Running NS-PLOT within the project](#4513-running-ns-plot-within-the-project)
 
 <!-- /TOC -->
 
-## 1. Introduction
-## 2. Installation
+# 1. Introduction
+# 2. Installation
 Before you can run anything, you need to install the dependencies, NS-3 and DCE.
-### 2.1 Dependency Libraries
+## 2.1. Dependency Libraries
 Use the following command to get all libraries along with NS-3 and DCE has to be installed.
 ``` bash
 # Dependencies
@@ -50,7 +50,7 @@ sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev \
                      libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs \ 
                      unrar p7zip-full autoconf
 ```
-### 2.2 NS-3 with DCE
+## 2.2. NS-3 with DCE
 Run the script below to install NS-3 with DCE.
 ``` bash
 # !/bin/bash
@@ -93,7 +93,7 @@ You could try doing this (as some computers have a problem with the python code 
 [The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
 
 
-### 2.3 System settings
+## 2.3. System settings
 Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to append the following lines to the end of 
 ``` bash
 /etc/security/limits.conf
@@ -106,7 +106,7 @@ Most Linux systems place restrictions on how many user processes can be run at t
 *         soft    nofile      65536
 ```
 Restart your computer to apply the settings. For more information see the [DCE Manual](https://www.nsnam.org/docs/dce/release/1.4/manual/singlehtml/index.html#processes-limit-resource-temporarily-unavailable).
-### 2.4 Downloading the project
+## 2.4. Downloading the project
 Assuming that the NS-3 DCE installation directory is:
 ``` bash
 export NS3_HOME="$HOME/dce"
@@ -120,12 +120,12 @@ git fetch
 git checkout -t origin/master
 ```
 	
-## 3. Running the simulator
+# 3. Running the simulator
 The simulator is built to run in the system terminal. The simulator first runs a simulation for each of the network protocols implemented then it parses the data from the dumped .pcap files into .dat files for the plotting program. Each protocol implemented has both a client and a server class. A diagram of the entire simulator is shown in figure 1.
 ![Simulator class diagram](https://cloud.githubusercontent.com/assets/6905219/23823844/438f9308-066b-11e7-8e4f-9a186e3cd4b7.PNG)
 Running the simulator is done through the terminal.
 
-### 3.1 Starting
+## 3.1. Starting
 To run the simulator, run the following commands
 ``` bash
 ./waf configure --with-ns3=$NS3_HOME/build --prefix=$NS3_HOME/build \
@@ -134,13 +134,13 @@ To run the simulator, run the following commands
 ./waf --run my-simulator
 
 ```	
-### 3.2 Plotting
+## 3.2. Plotting
 The plotting program is separate from the simulation. To plot the results from a simulation, run:
 ``` bash
 cd $NS3_HOME/source/ns-3-dce
 build/myscripts/my-simulator/bin/./NSplot output.png my-simulator-output/*.dat -2d
 ```
-### 3.3 Configuration Simulation Parameters
+## 3.3. Configuration Simulation Parameters
 There are several premade scripts that are ready to be run. The scripts are named *SimRED* or *SimREG* depending on if it uses *RED* or not. Then they are named after which protocols they are running. For example *SimREG_All*, runs all of the scripts. While *SimRED_SCTP*, runs the *SCTP* protocol with *RED*. The different scripts that are premade are:
 ```
 SimREG_All
@@ -156,7 +156,7 @@ SimRED_SCTP
 ```
 
 In order to change the parameters for the simulator the main section of the script has to be edited. 
-#### 3.3.1 Wifi standard
+### 3.3.1. Wifi standard
 The following lines has to be edited in order to change what Wifi standard the simulator uses.
 ```
 sim settings.wifi std = WIFI PHY STANDARD 80211a;
@@ -182,28 +182,28 @@ There are also many different data rates implemented. Here are a few examples.
 "OfdmRate54Mbps"
 ```
 
-#### 3.3.2 Simulation stop time
+### 3.3.2. Simulation stop time
 By changing the ```sim_settings.sim_stop_time_sec``` variable, one changes the max time the simulator is going to run. It is currently set to 10000 seconds. 
-#### 3.3.3 Number of clients
+### 3.3.3. Number of clients
 Adding more clients to the simulator is done through changing the ```sim_settings.number_of_clients``` variable. The simulator will always have one server node in addition to the clients.
-#### 3.3.4 Transfer Bytes
+### 3.3.4. Transfer Bytes
 Currently the amount of bytes to transfer from each client is 1 megabyte. This can be increased or decreased by changing the ```sim_settings.transfer_data_bytes``` variable.
-#### 3.3.5 Socket and Streams
+### 3.3.5. Socket and Streams
 The number of SCTP streams and the number of TCP & DCCP connections aswell as the number of UDP sockets are all configured by the ```sim_settings.num_sockets_streams``` variable.
-#### 3.3.6 SCTP
+### 3.3.6. SCTP
 For SCTP both the time-to-live and unordered packet option can be configured. Changing the ```sim_settings.sctp_ttl_ms``` variable configures the time-to-live in milliseconds with 0 such that time-to-live will be disabled. Setting ```sim_settings.sctp_unordered``` variable to 0 sends the data in-order and setting it to 1 sends the data unordered.
-#### 3.3.7 UDP and DCCP
+### 3.3.7. UDP and DCCP
 Both UDP and DCCP send rates can be configured with the 
 ```
 sim_settings.udp_send_rate_kbytes_sec
 sim_settings.dccp_send_rate_kbytes_sec
 ```
 variables. Both are measured in kilobytes/second.
-#### 3.3.8 Cycles
+### 3.3.8. Cycles
 Configuring cycles changes if the simulator should run on/off sources or a single continuous stream. The sim settings.num cycles variable changes how many cycles is going to be run. Giving a total data sent per client = transfer data bytes * num cycles. The time between each cycle is configured by the ```sim_settings.time_between_cycles_usec``` variable and is measured in microseconds.
-#### 3.3.9 Output
+### 3.3.9. Output
 The output directory for the simulator can be configured by the ```sim_settings.output_dir``` variable and is currently set to ```”/my-simulator-output/”```.
-#### 3.3.10 Variable Span
+### 3.3.10. Variable Span
 In order to change what variable span to iterate over the int *var variable has to be altered. It takes the memory address of the variable of iteration. One also has to change the ```int min, max, inc``` variables to fit the new iteration variable and if necessary change the loop itself.
 
 Simulation stop time
@@ -216,14 +216,14 @@ UDP and DCCP
 Cycles
 Output
 Variable Span
-## 4. NS-PLOT
-### 4.1. Introduction
+# 4. NS-PLOT
+## 4.1. Introduction
 *NS-PLOT* is a module within the project *PR-SCTP over IEEE 802.11* which is responsible for the visual representation of the simulation result. *NS-PLOT* is a seperate program, which will create plots from the output of the *NS-3* simulation script. *NS-PLOT* takes one or more *.dat* files as input and output a single plot (represented as a *.png* file). 
-### 4.2 Use of Gnuplot
+## 4.2. Use of Gnuplot
 *NS-PLOT* uses *Gnuplot* for plotting. *Gnuplot* is a command-line program that can generate two- and three-dimensional plots of functions,data and data fits. Its frequently used for publication-quality graphics as well as education. The program runs on all major computers and operating systems (*GNU/Linux, Unix, Microsoft Windows, Mac OS X,* and others). IT is a program with a fairly long history, dating back to 1986.
 
 *NS-PLOT* is handling the destination of input and output files, as well as the desired parameters, labels and type of graph (2D and 3D). This information is then passed to *Gnuplot* via a system call (**system()** function) which will generate an output plot.
-### 4.3 Input files
+## 4.3. Input files
 The software takes at least one *.dat* file as input (limited to one file for 3D-plotting). These files contain the simulation summary. Each row in a *.dat* file stores a specific information about one simulation, for example, by looking at the figure below, we can see that the total amount of frames sent was 8129 it took approximately 5.03 seconds to transfer the total data of 10.73 Megabytes of data, of which 10 megabytes was the raw (actual/useful) data and so on. More information about the parameters can be found in subsection 4.3.
 
 ![.dat example](https://cloud.githubusercontent.com/assets/11329652/23823642/11543960-0667-11e7-87c7-49029ee7f8db.PNG)
@@ -231,7 +231,7 @@ The software takes at least one *.dat* file as input (limited to one file for 3D
 
 
 Those simulation files should also be formatted according to a predefined pattern. The parameters should be separated by a single line space, there should be equal amount of parameters in each row, every parameter should either be a real number or be assigned a *NaN* (Not-a-Number) value.
-### 4.4 Functionality
+## 4.4. Functionality
 The software supports both 2D- and 3D plotting of simulation data. The user can assign one of 13 available parameters to each axis. The list of parameters is displayed below:
 
 * **Frames (id= 1)** - Number of frames (packets) sent during the transmission.
@@ -249,12 +249,12 @@ The software supports both 2D- and 3D plotting of simulation data. The user can 
 * **Streams/sockets per client (id = 13)** - Number of streams/sockets per client. Streams are specific for *SCTP* protocol.
 
 *NS-PLOT* supports viewing of multiple simulations on the same data plot. This option is only available for 2D-plotting and can be useful for comparing simulation results to each other. The labels and keys are set automatically by the software, according to the chosen parameters
-### 4.5 Usage of NS-PLOT
+## 4.5. Usage of NS-PLOT
 *NS-PLOT*  is seperated from the *NS-3 DCE* simulation script. It is highly recomended that the *C++* code is compiled by using the *gcc* compiler with *-std=c++* flag. After the compilation the software can be started from the terminal by changing the directory to the one where the *NS-PLOT* executable file is stored. A new user of the software may use the command with the *-help* flag to get some basic information about the program, as described below.
 ````
 ./NSplot -help
 ````
-#### 4.5.1 Argument format
+### 4.5.11. Argument format
 The input file(s) and output destination are passed on into the program by listing them in the bash command (a single space shall be added in between each of the files). The *-dim* flag should be given as the last argument in the command. The only two possible values for the *-dim* flag are *-2d* or *-3d*.
 The correct format of arguments can be seen below.
 ````
@@ -262,7 +262,7 @@ The correct format of arguments can be seen below.
 ````
 An argument error can be generated if the format, given above, is not followed. File not found error will occur if one of the input files is non-existent. Dimension error may occur by either passing the wrong *-dim* flag, or by passing more than one input file from the terminal in 3D mode.
 
-#### 4.5.2 Creating a plot
+### 4.5.12. Creating a plot
 In the example below, *SCTP* and *TCP* protocols were simulated by increasing the amount of sent data by 2 Megabytes at a time from 2 Megabytes to 100, by using our *NS-3* simulation script. The simulation results were stored in *sctp_simtotal.dat* for the simulation of *SCTP* and *tcp* simtotal.dat for the simulation of *TCP* protocol.
 
 Let us define a case, where user wants to study how the percentage of useful data is affected by increasing the size of the file to transfer across a wireless link. The output should be a two-dimensional plot, stored in perc size.png file which will be located in the same folder. The correct command for starting up *NS-PLOT* will look as follows.
@@ -280,7 +280,7 @@ Once the parameters are typed in correctly, *NS-PLOT* will generate an output, w
 ![Plot Example](https://cloud.githubusercontent.com/assets/11329652/23823987/af4419a4-066e-11e7-9436-67644c0e0507.PNG)
 
 
-#### 4.5.3 Running NS-PLOT within the project
+### 4.5.13. Running NS-PLOT within the project
 *NS-PLOT* is included in the project's *GitHub* repository and is compiled along with other libraries and helper-classes. Once all the components are installed and the user is able to perform simulations, the *NS-PLOT* module can be initiated by moving into the directory with the executable file.
 
 ````
