@@ -1,3 +1,38 @@
+
+<!-- TOC -->
+
+- [1. Introduction](#1-introduction)
+- [2. Installation](#2-installation)
+    - [2.1 Dependency Libraries](#21-dependency-libraries)
+    - [2.2 NS-3 with DCE](#22-ns-3-with-dce)
+    - [2.3 System settings](#23-system-settings)
+    - [2.4 Downloading the project](#24-downloading-the-project)
+- [3. Running the simulator](#3-running-the-simulator)
+    - [3.1 Starting](#31-starting)
+    - [3.2 Plotting](#32-plotting)
+    - [3.3 Configuration Simulation Parameters](#33-configuration-simulation-parameters)
+        - [3.3.1 Wifi standard](#331-wifi-standard)
+        - [3.3.2 Simulation stop time](#332-simulation-stop-time)
+        - [3.3.3 Number of clients](#333-number-of-clients)
+        - [3.3.4 Transfer Bytes](#334-transfer-bytes)
+        - [3.3.5 Socket and Streams](#335-socket-and-streams)
+        - [3.3.6 SCTP](#336-sctp)
+        - [3.3.7 UDP and DCCP](#337-udp-and-dccp)
+        - [3.3.8 Cycles](#338-cycles)
+        - [3.3.9 Output](#339-output)
+        - [3.3.10 Variable Span](#3310-variable-span)
+- [4. NS-PLOT](#4-ns-plot)
+    - [4.1. Introduction](#41-introduction)
+    - [4.2 Use of Gnuplot](#42-use-of-gnuplot)
+    - [4.3 Input files](#43-input-files)
+    - [4.4 Functionality](#44-functionality)
+    - [4.5 Usage of NS-PLOT](#45-usage-of-ns-plot)
+        - [4.5.1 Argument format](#451-argument-format)
+        - [4.5.2 Creating a plot](#452-creating-a-plot)
+        - [4.5.3 Running NS-PLOT within the project](#453-running-ns-plot-within-the-project)
+
+<!-- /TOC -->
+
 ## 1. Introduction
 ## 2. Installation
 Before you can run anything, you need to install the dependencies, NS-3 and DCE.
@@ -53,7 +88,7 @@ bake.py build
 If there are a problem with installing the dce-linux-1.7.
 You could try doing this (as some computers have a problem with the python code in the installation script):
 
-# CARL STUFF PYTHON STUFF
+**CARL STUFF PYTHON STUFF**
 
 [The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
 
@@ -219,7 +254,7 @@ The software supports both 2D- and 3D plotting of simulation data. The user can 
 ````
 ./NSplot -help
 ````
-### 4.5.1 Argument format
+#### 4.5.1 Argument format
 The input file(s) and output destination are passed on into the program by listing them in the bash command (a single space shall be added in between each of the files). The *-dim* flag should be given as the last argument in the command. The only two possible values for the *-dim* flag are *-2d* or *-3d*.
 The correct format of arguments can be seen below.
 ````
@@ -227,7 +262,7 @@ The correct format of arguments can be seen below.
 ````
 An argument error can be generated if the format, given above, is not followed. File not found error will occur if one of the input files is non-existent. Dimension error may occur by either passing the wrong *-dim* flag, or by passing more than one input file from the terminal in 3D mode.
 
-### 4.5.2 Creating a plot
+#### 4.5.2 Creating a plot
 In the example below, *SCTP* and *TCP* protocols were simulated by increasing the amount of sent data by 2 Megabytes at a time from 2 Megabytes to 100, by using our *NS-3* simulation script. The simulation results were stored in *sctp_simtotal.dat* for the simulation of *SCTP* and *tcp* simtotal.dat for the simulation of *TCP* protocol.
 
 Let us define a case, where user wants to study how the percentage of useful data is affected by increasing the size of the file to transfer across a wireless link. The output should be a two-dimensional plot, stored in perc size.png file which will be located in the same folder. The correct command for starting up *NS-PLOT* will look as follows.
@@ -245,7 +280,7 @@ Once the parameters are typed in correctly, *NS-PLOT* will generate an output, w
 ![Plot Example](https://cloud.githubusercontent.com/assets/11329652/23823987/af4419a4-066e-11e7-9436-67644c0e0507.PNG)
 
 
-### 4.5.3 Running NS-PLOT within the project
+#### 4.5.3 Running NS-PLOT within the project
 *NS-PLOT* is included in the project's *GitHub* repository and is compiled along with other libraries and helper-classes. Once all the components are installed and the user is able to perform simulations, the *NS-PLOT* module can be initiated by moving into the directory with the executable file.
 
 ````
