@@ -1,30 +1,30 @@
 ## Welcome to the Pr-SCTP Simulation Project
 
 ### About
-
-### Dependencies
+[Link to RED DOCUMENT](http://www.diva-portal.org/smash/get/diva2:831714/FULLTEXT01.pdf)
 
 ### Installation script for NS-3 environment
 Using Ubuntu 16.04, run this script to install and build NS-3 DCE.
 ``` bash
-#!/bin/bash
+# !/bin/bash
 
 cd ~
 
-#Dependencies
+# Dependencies
 sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev \
                      mercurial bzr cmake libc6-dev g++-multilib gsl-bin \
                      libgsl0-dev libgsl2 flex bison libfl-dev tcpdump sqlite \ sqlite3 libsqlite3-dev libxml2 libxml2-dev \
                      libgtk2.0-0 libgtk2.0-dev vtun lxc doxygen graphviz \ imagemagick git python-pygraphviz python-pygoocanvas \
                      libgoocanvas-dev python-setuptools libpcap-dev libdb-dev \ libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs \ unrar p7zip-full autoconf
 
-#Installing the bake tool in the directory you're currently in.
+# Installing the bake tool in the directory you're currently in.
 hg clone http://code.nsnam.org/bake bake
 export BAKE_HOME=`pwd`/bake
 export PATH=$PATH:$BAKE_HOME
 export PYTHONPATH=$PYTHONPATH:$BAKE_HOME
 
-#Create the directory in which to download and build the DCE variant of NS-3. it has only been tried with version 1.7. Try another version at your own risk.
+# Create the directory in which to download and build the DCE variant of NS-3.
+# It has only been tried with version 1.7. Try another version at your own risk.
 mkdir ns3-dce
 cd ns3-dce
 bake.py configure -e dce-linux-1.7
@@ -96,16 +96,3 @@ find files-* -name 'stdout' -exec grep 'debug' {} \;
 ### Screenshots
 The simulation interface is text based, but the program supports generation of NetAnim trace files in order to visualize node mobility. Below is a screenshot showing a network client sending data over a Wi-Fi network. 
 ![Screenshot of moving nodes](https://cloud.githubusercontent.com/assets/6905219/23822639/dd899208-0650-11e7-82c1-048080881562.png "Screenshot of moving nodes")
-
-### Project Link
-
-[Link to Project Material](https://drive.google.com/drive/u/2/folders/0B5gIZlC2RN2oTGNRRjVTQ3BGSGc)
-
-#### TODO list
-[Link to backlog 1](https://docs.google.com/spreadsheets/d/1MV2RN98cWmCtaJ1_0CGGi7_4Nv7sKSASS3jTShc4Nj8/)
-[Link to backlog 2](https://docs.google.com/spreadsheets/d/1n70baUivFsSjJZWA9vRQaaQj7RgWKoa_FzVCKOycr-w/)
-
-##### RED document
-[Link to RED DOCUMENT 1](http://www.diva-portal.org/smash/get/diva2:831714/FULLTEXT01.pdf)
-
-[Link to RED DOCUMENT 2](http://www.icir.org/floyd/papers/early.pdf)
