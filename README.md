@@ -4,7 +4,7 @@
 
 ###Dependencies
 
-###Installation script for environment
+###Installation script for NS-3 environment
 ~~~~ bash
 #!/bin/bash
 
