@@ -1,4 +1,17 @@
 [//]: <> (<div style="page-break-after: always;"></div>)
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <!-- TOC -->
 
 - [1. Introduction](#1-introduction)
@@ -27,11 +40,12 @@
     - [4.3. Input files](#43-input-files)
     - [4.4. Functionality](#44-functionality)
     - [4.5. Usage of NS-PLOT](#45-usage-of-ns-plot)
-        - [4.5.11. Argument format](#4511-argument-format)
-        - [4.5.12. Creating a plot](#4512-creating-a-plot)
-        - [4.5.13. Running NS-PLOT within the project](#4513-running-ns-plot-within-the-project)
+        - [4.5.1. Argument format](#451-argument-format)
+        - [4.5.2. Creating a plot](#452-creating-a-plot)
+        - [4.5.3. Running NS-PLOT within the project](#453-running-ns-plot-within-the-project)
 
 <!-- /TOC -->
+<div style="page-break-after: always;"></div>
 
 # 1. Introduction
 This project aims to asses the performances of the *SCTP, DCCP, TCP* and *UDP* network transport-layer protocols during different scenarios and *Random Early Detection (RED)* Algorithm, using the network simulator *NS-3*. The *NS-3* framework *Direct Code Execution (DCE)* is used to simulate client/server applications which generate network traffic. For the *DCCP, TCP* and *UDP* protocols, the standard Linux kernel implementations are used, while the *SCTP* protocol uses the external library called *lksctp*.
@@ -74,7 +88,10 @@ hg clone http://code.nsnam.org/bake bake
 export BAKE_HOME=`pwd`/bake
 export PATH=$PATH:$BAKE_HOME
 export PYTHONPATH=$PYTHONPATH:$BAKE_HOME
+```
+<div style="page-break-after: always;"></div>
 
+``` bash
 # Create the directory in which to download and build the DCE variant of NS-3.
 # It has only been tried with version 1.7. Try another version at your own risk.
 mkdir ns3-dce
@@ -119,10 +136,14 @@ git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
 git fetch
 git checkout -t origin/master
 ```
-	
+<div style="page-break-after: always;"></div>
+
 # 3. Running the simulator
 The simulator is built to run in the system terminal. The simulator first runs a simulation for each of the network protocols implemented then it parses the data from the dumped .pcap files into .dat files for the plotting program. Each protocol implemented has both a client and a server class. A diagram of the entire simulator is shown in figure 1.
-![Simulator class diagram](https://cloud.githubusercontent.com/assets/6905219/23823844/438f9308-066b-11e7-8e4f-9a186e3cd4b7.PNG)
+
+
+<img style="float: middle;" src="https://cloud.githubusercontent.com/assets/11329652/23824590/8124eca0-0679-11e7-9597-72988b1baa84.PNG" alt="Simulator class diagram" width="800"/>
+
 Running the simulator is done through the terminal.
 
 ## 3.1. Starting
@@ -140,6 +161,8 @@ The plotting program is separate from the simulation. To plot the results from a
 cd $NS3_HOME/source/ns-3-dce
 build/myscripts/my-simulator/bin/./NSplot output.png my-simulator-output/*.dat -2d
 ```
+<div style="page-break-after: always;"></div>
+
 ## 3.3. Configuration Simulation Parameters
 There are several premade scripts that are ready to be run. The scripts are named *SimRED* or *SimREG* depending on if it uses *RED* or not. Then they are named after which protocols they are running. For example *SimREG_All*, runs all of the scripts. While *SimRED_SCTP*, runs the *SCTP* protocol with *RED*. The different scripts that are premade are:
 ```
@@ -186,6 +209,8 @@ There are also many different data rates implemented. Here are a few examples.
 By changing the ```sim_settings.sim_stop_time_sec``` variable, one changes the max time the simulator is going to run. It is currently set to 10000 seconds. 
 ### 3.3.3. Number of clients
 Adding more clients to the simulator is done through changing the ```sim_settings.number_of_clients``` variable. The simulator will always have one server node in addition to the clients.
+<div style="page-break-after: always;"></div>
+
 ### 3.3.4. Transfer Bytes
 Currently the amount of bytes to transfer from each client is 1 megabyte. This can be increased or decreased by changing the ```sim_settings.transfer_data_bytes``` variable.
 ### 3.3.5. Socket and Streams
@@ -205,17 +230,8 @@ Configuring cycles changes if the simulator should run on/off sources or a singl
 The output directory for the simulator can be configured by the ```sim_settings.output_dir``` variable and is currently set to ```”/my-simulator-output/”```.
 ### 3.3.10. Variable Span
 In order to change what variable span to iterate over the int *var variable has to be altered. It takes the memory address of the variable of iteration. One also has to change the ```int min, max, inc``` variables to fit the new iteration variable and if necessary change the loop itself.
+<div style="page-break-after: always;"></div>
 
-Simulation stop time
-	By changing the variable, one changes the max time 
-Number of clients
-Transfer Bytes
-Socket and Streams
-SCTP
-UDP and DCCP
-Cycles
-Output
-Variable Span
 # 4. NS-PLOT
 ## 4.1. Introduction
 *NS-PLOT* is a module within the project *PR-SCTP over IEEE 802.11* which is responsible for the visual representation of the simulation result. *NS-PLOT* is a seperate program, which will create plots from the output of the *NS-3* simulation script. *NS-PLOT* takes one or more *.dat* files as input and output a single plot (represented as a *.png* file). 
@@ -231,6 +247,8 @@ The software takes at least one *.dat* file as input (limited to one file for 3D
 
 
 Those simulation files should also be formatted according to a predefined pattern. The parameters should be separated by a single line space, there should be equal amount of parameters in each row, every parameter should either be a real number or be assigned a *NaN* (Not-a-Number) value.
+<div style="page-break-after: always;"></div>
+
 ## 4.4. Functionality
 The software supports both 2D- and 3D plotting of simulation data. The user can assign one of 13 available parameters to each axis. The list of parameters is displayed below:
 
@@ -254,7 +272,7 @@ The software supports both 2D- and 3D plotting of simulation data. The user can 
 ````
 ./NSplot -help
 ````
-### 4.5.11. Argument format
+### 4.5.1. Argument format
 The input file(s) and output destination are passed on into the program by listing them in the bash command (a single space shall be added in between each of the files). The *-dim* flag should be given as the last argument in the command. The only two possible values for the *-dim* flag are *-2d* or *-3d*.
 The correct format of arguments can be seen below.
 ````
@@ -262,7 +280,7 @@ The correct format of arguments can be seen below.
 ````
 An argument error can be generated if the format, given above, is not followed. File not found error will occur if one of the input files is non-existent. Dimension error may occur by either passing the wrong *-dim* flag, or by passing more than one input file from the terminal in 3D mode.
 
-### 4.5.12. Creating a plot
+### 4.5.2. Creating a plot
 In the example below, *SCTP* and *TCP* protocols were simulated by increasing the amount of sent data by 2 Megabytes at a time from 2 Megabytes to 100, by using our *NS-3* simulation script. The simulation results were stored in *sctp_simtotal.dat* for the simulation of *SCTP* and *tcp* simtotal.dat for the simulation of *TCP* protocol.
 
 Let us define a case, where user wants to study how the percentage of useful data is affected by increasing the size of the file to transfer across a wireless link. The output should be a two-dimensional plot, stored in perc size.png file which will be located in the same folder. The correct command for starting up *NS-PLOT* will look as follows.
@@ -270,6 +288,7 @@ Let us define a case, where user wants to study how the percentage of useful dat
 ````
 ./NSplot perc_size.png sctp_simtotal.dat tcp_simtotal.dat -2d
 ````
+<div style="page-break-after: always;"></div>
 
 Once the correct arguments are passed to the program and it starts running, user gets to choose the parameters which will be plotted against each other. The parameter which corresponds to the size of the file which was transferred is *Data no headers* parameter. This parameter has identification number 4, so user shall type number 4 to assign it to *x*-axis. The dependent parameter, which in this example is the percentage of useful/raw data, corresponds to *Data percentage* parameter. This parameter has identification number 6, and is assigned to the *y*-axis by typing 6 in to the program. The process is also described i figure 5
 
@@ -277,10 +296,10 @@ Once the correct arguments are passed to the program and it starts running, user
 
 Once the parameters are typed in correctly, *NS-PLOT* will generate an output, which will appear on the screen, as seen in the picture below.
 
-![Plot Example](https://cloud.githubusercontent.com/assets/11329652/23823987/af4419a4-066e-11e7-9436-67644c0e0507.PNG)
+![Plot Example](https://cloud.githubusercontent.com/assets/11329652/23824444/5002264e-0677-11e7-9c1e-da106fb4b9d5.PNG)
 
 
-### 4.5.13. Running NS-PLOT within the project
+### 4.5.3. Running NS-PLOT within the project
 *NS-PLOT* is included in the project's *GitHub* repository and is compiled along with other libraries and helper-classes. Once all the components are installed and the user is able to perform simulations, the *NS-PLOT* module can be initiated by moving into the directory with the executable file.
 
 ````
@@ -295,3 +314,4 @@ build/myscripts/my-simulator/bin/./NSplot output.png my-simulator-output/*.dat -
 
 Now, that the software is running, one can follow the steps provided in section 4.5.2 to create plots of the simulation data.
 
+</html>
