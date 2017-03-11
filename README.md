@@ -48,13 +48,26 @@ Restart your computer to apply the settings. For more information see the [DCE M
 Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to append the following lines to the end of 
 
 ###Installation of RED
+Assuming that the NS-3 DCE installation directory is:
 ~~~~
 export NS3_HOME="$HOME/dce"
+~~~~
+
+~~~~
 cd $NS3_HOME/source/ns-3-dce
 git init
 git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
 git fetch
 git checkout -t origin/master
+~~~~
+
+###Running
+~~~~
+./waf configure --with-ns3=$NS3_HOME/build --prefix=$NS3_HOME/build \
+                --enable-kernel-stack=$NS3_HOME/source/net-next-sim-2.6.36/arch
+./waf build
+./waf --run my-simulator
+
 ~~~~
 
 
