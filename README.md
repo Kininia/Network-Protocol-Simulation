@@ -30,11 +30,11 @@ sed -i '75s/.*//' source/ns-3-dce/test/test-tsearch.cc
 bake.py build
 ~~~~
 [Link to installation script on NS3 webpage](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
-~~~~
+~~~~ bash
 /etc/security/limits.conf
 ~~~~
 
-~~~~
+~~~~ conf
 *         hard    nproc       65536
 *         soft    nproc       65536
 *         hard    nofile      65536
@@ -47,11 +47,11 @@ Most Linux systems place restrictions on how many user processes can be run at t
 
 ###Installation of RED
 Assuming that the NS-3 DCE installation directory is:
-~~~~
+~~~~ bash
 export NS3_HOME="$HOME/dce"
 ~~~~
 
-~~~~
+~~~~ bash
 cd $NS3_HOME/source/ns-3-dce
 git init
 git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
@@ -60,7 +60,7 @@ git checkout -t origin/master
 ~~~~
 
 ###Running
-~~~~
+~~~~ bash
 ./waf configure --with-ns3=$NS3_HOME/build --prefix=$NS3_HOME/build \
                 --enable-kernel-stack=$NS3_HOME/source/net-next-sim-2.6.36/arch
 ./waf build
