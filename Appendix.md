@@ -34,6 +34,7 @@
 <!-- /TOC -->
 
 # 1. Introduction
+This project aims to asses the performances of the *SCTP, DCCP, TCP* and *UDP* network transport-layer protocols during different scenarios and *Random Early Detection (RED)* Algorithm, using the network simulator *NS-3*. The *NS-3* framework *Direct Code Execution (DCE)* is used to simulate client/server applications which generate network traffic. For the *DCCP, TCP* and *UDP* protocols, the standard Linux kernel implementations are used, while the *SCTP* protocol uses the external library called *lksctp*.
 # 2. Installation
 Before you can run anything, you need to install the dependencies, NS-3 and DCE.
 ## 2.1. Dependency Libraries
