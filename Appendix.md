@@ -56,9 +56,9 @@ sed -i '75s/.*//' source/ns-3-dce/test/test-tsearch.cc
 bake.py build
 ```
 If there are a problem with installing the dce-linux-1.7.
-You could try doing this (as some computers have a problem with the python code in the installation script):
+You could try doing this (as some computers have a problem with the installation script):
+Add ``` -fno-stack-protector``` as a ```CFLAG``` in all the ```libc builds```. This can be found in wscript for NS-3 DCE.
 
-**CARL STUFF PYTHON STUFF**
 
 [The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
 
