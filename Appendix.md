@@ -17,6 +17,8 @@ sudo apt-get install gcc g++ python python-dev qt4-dev-tools libqt4-dev \
                      libssl-dev lksctp-tools libsctp-dev tshark gnuplot cvs \ 
                      unrar p7zip-full autoconf
 ```
+<div style="page-break-after: always;"></div>
+
 ## 2.2. NS-3 with DCE
 Run the script below to install NS-3 with DCE.
 ``` bash
@@ -41,7 +43,6 @@ export BAKE_HOME=`pwd`/bake
 export PATH=$PATH:$BAKE_HOME
 export PYTHONPATH=$PYTHONPATH:$BAKE_HOME
 ```
-<div style="page-break-after: always;"></div>
 
 ``` bash
 # Create the directory in which to download and build the DCE variant of NS-3.
@@ -61,6 +62,7 @@ Add ``` -fno-stack-protector``` as a ```CFLAG``` in all the ```libc builds```. T
 
 
 [The original installation instructions from the NS-3 webpage.](https://www.nsnam.org/docs/dce/manual/html/getting-started.html#building-dce-basic-mode)
+<div style="page-break-after: always;"></div>
 
 ## 2.3. System settings
 Most Linux systems place restrictions on how many user processes can be run at the same time, and how many files each process can open. This project needs to run multiple NS-3 simulation instances in order to generate useful network statistics, which creates a lot of files and processes. Therefore it is necessary to append the following lines to the end of 
@@ -88,10 +90,9 @@ git remote add origin https://github.com/Kininia/Network-Protocol-Simulation.git
 git fetch
 git checkout -t origin/master
 ```
-<div style="page-break-after: always;"></div>
 
 # 3. Running the simulator
-The simulator is built to run in the system terminal. The simulator first runs a simulation for each of the network protocols implemented then it parses the data from the dumped .pcap files into .dat files for the plotting program. Each protocol implemented has both a client and a server class. A diagram of the entire simulator is shown in figure 1.
+The simulator is built to run in the system terminal. The simulator first runs a simulation for each of the network protocols implemented then it parses the data from the dumped .pcap files into .dat files for the plotting program. Each protocol implemented has both a client and a server class. A diagram of the entire simulator is shown below.
 
 
 <img style="float: middle;" src="https://cloud.githubusercontent.com/assets/11329652/23824590/8124eca0-0679-11e7-9597-72988b1baa84.PNG" alt="Simulator class diagram" width="800"/>
@@ -161,7 +162,6 @@ There are also many different data rates implemented. Here are a few examples.
 By changing the ```sim_settings.sim_stop_time_sec``` variable, one changes the max time the simulator is going to run. It is currently set to 10000 seconds. 
 ### 3.3.3. Number of clients
 Adding more clients to the simulator is done through changing the ```sim_settings.number_of_clients``` variable. The simulator will always have one server node in addition to the clients.
-<div style="page-break-after: always;"></div>
 
 ### 3.3.4. Transfer Bytes
 Currently the amount of bytes to transfer from each client is 1 megabyte. This can be increased or decreased by changing the ```sim_settings.transfer_data_bytes``` variable.
@@ -182,7 +182,6 @@ Configuring cycles changes if the simulator should run on/off sources or a singl
 The output directory for the simulator can be configured by the ```sim_settings.output_dir``` variable and is currently set to ```”/my-simulator-output/”```.
 ### 3.3.10. Variable Span
 In order to change what variable span to iterate over the int *var variable has to be altered. It takes the memory address of the variable of iteration. One also has to change the ```int min, max, inc``` variables to fit the new iteration variable and if necessary change the loop itself.
-<div style="page-break-after: always;"></div>
 
 # 4. NS-PLOT
 ## 4.1. Introduction
@@ -191,6 +190,7 @@ In order to change what variable span to iterate over the int *var variable has 
 *NS-PLOT* uses *Gnuplot* for plotting. *Gnuplot* is a command-line program that can generate two- and three-dimensional plots of functions,data and data fits. Its frequently used for publication-quality graphics as well as education. The program runs on all major computers and operating systems (*GNU/Linux, Unix, Microsoft Windows, Mac OS X,* and others). IT is a program with a fairly long history, dating back to 1986.
 
 *NS-PLOT* is handling the destination of input and output files, as well as the desired parameters, labels and type of graph (2D and 3D). This information is then passed to *Gnuplot* via a system call (**system()** function) which will generate an output plot.
+
 ## 4.3. Input files
 The software takes at least one *.dat* file as input (limited to one file for 3D-plotting). These files contain the simulation summary. Each row in a *.dat* file stores a specific information about one simulation, for example, by looking at the figure below, we can see that the total amount of frames sent was 8129 it took approximately 5.03 seconds to transfer the total data of 10.73 Megabytes of data, of which 10 megabytes was the raw (actual/useful) data and so on. More information about the parameters can be found in subsection 4.3.
 
@@ -199,7 +199,6 @@ The software takes at least one *.dat* file as input (limited to one file for 3D
 
 
 Those simulation files should also be formatted according to a predefined pattern. The parameters should be separated by a single line space, there should be equal amount of parameters in each row, every parameter should either be a real number or be assigned a *NaN* (Not-a-Number) value.
-<div style="page-break-after: always;"></div>
 
 ## 4.4. Functionality
 The software supports both 2D- and 3D plotting of simulation data. The user can assign one of 13 available parameters to each axis. The list of parameters is displayed below:
@@ -219,6 +218,8 @@ The software supports both 2D- and 3D plotting of simulation data. The user can 
 * **Streams/sockets per client (id = 13)** - Number of streams/sockets per client. Streams are specific for *SCTP* protocol.
 
 *NS-PLOT* supports viewing of multiple simulations on the same data plot. This option is only available for 2D-plotting and can be useful for comparing simulation results to each other. The labels and keys are set automatically by the software, according to the chosen parameters
+<div style="page-break-after: always;"></div>
+
 ## 4.5. Usage of NS-PLOT
 *NS-PLOT*  is seperated from the *NS-3 DCE* simulation script. It is highly recomended that the *C++* code is compiled by using the *gcc* compiler with *-std=c++* flag. After the compilation the software can be started from the terminal by changing the directory to the one where the *NS-PLOT* executable file is stored. A new user of the software may use the command with the *-help* flag to get some basic information about the program, as described below.
 ````
